@@ -1,6 +1,9 @@
 package pl.vik.GM;
 
-import java.util.ArrayList;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Random;
 
 public class Player implements Actions{
@@ -12,6 +15,7 @@ public class Player implements Actions{
     public Integer currentEnergy;
 
     Random random = new Random();
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     Player(FightManeger fightManeger) {
         this.fightManeger = fightManeger;
@@ -21,8 +25,10 @@ public class Player implements Actions{
     }
 
     public void printActionList() {
+        int idx = 1;
         for ( Skill skill : player.skills) {
-            System.out.println(skill.name + " (" + skill.minEfficiency + "-" + skill.maxEfficiency + " " + skill.type + ")");
+            System.out.println(idx + ". " + skill.name + " (" + skill.minEfficiency + "-" + skill.maxEfficiency + " " + skill.type + ")");
+            idx += 1;
         }
     }
 
@@ -43,15 +49,33 @@ public class Player implements Actions{
         } else {
             currentHealth = player.health;
         }
+        System.out.println("Player Healed for " + efficiency);
     }
 
     @Override
     public void buff(Skill skill) {
-
+        System.out.println("Player used Buff and did nothing");
     }
 
     @Override
     public void makeMove() {
-        attack(new Skill("a", Skill.skillType.ATTACK,5,2));
+        printActionList();
+        System.out.println("Pick a skill you want to use: ");
+        int skillNumber = 0;
+        try {
+            skillNumber = Integer.parseInt(reader.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        useSkill(player.skills.get(skillNumber-1));
+    }
+
+    public void useSkill(Skill skill) {
+        switch (skill.type) {
+            case ATTACK -> attack(skill);
+            case HEAL -> heal(skill);
+            case BUFF -> buff(skill);
+        }
     }
 }

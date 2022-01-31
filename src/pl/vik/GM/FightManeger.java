@@ -40,6 +40,8 @@ public class FightManeger {
 
     private boolean fight() {
         while (player.currentHealth > 0 && enemy.currentHealth > 0) {
+            System.out.println("Player Health: " + player.currentHealth);
+            System.out.println("Enemy Health: " + enemy.currentHealth);
             if (isPlayerTurn) {
                 player.makeMove();
                 isPlayerTurn = false;
