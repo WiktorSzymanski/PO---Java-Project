@@ -28,14 +28,15 @@ public class Player implements Actions{
 
     @Override
     public void attack(Skill skill) {
-        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency) + skill.minEfficiency;
+        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency - 1;
 
         fightManeger.dealDmg(efficiency);
+        System.out.println("Player Attacked for " + efficiency);
     }
 
     @Override
     public void heal(Skill skill) {
-        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency) + skill.minEfficiency;
+        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency - 1;
 
         if (currentHealth + efficiency < player.health) {
             currentHealth += efficiency;
@@ -51,6 +52,6 @@ public class Player implements Actions{
 
     @Override
     public void makeMove() {
-
+        attack(new Skill("a", Skill.skillType.ATTACK,5,2));
     }
 }

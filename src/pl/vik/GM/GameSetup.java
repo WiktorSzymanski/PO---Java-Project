@@ -19,6 +19,8 @@ public class GameSetup {
         currentAnimalEnemy = randomPick(currentLevel);
         printAnimal(currentAnimalPlayer);
         printAnimal(currentAnimalEnemy);
+
+        new FightManeger(currentAnimalPlayer, currentAnimalEnemy);
     }
 
 
