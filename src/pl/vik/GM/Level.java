@@ -1,26 +1,21 @@
 package pl.vik.GM;
 
+import java.util.ArrayList;
+
 public class Level {
     String name;
-    Animal player;
-    Animal enemy;
+    ArrayList<Animal> playableAnimals;
+    ArrayList<Animal> possibleEnemies;
     String bg;
     String planes;
 
 
-    Level(String name,Animal player, Animal enemy, String bg, String planes) {
+    Level(String name,ArrayList<Animal> playableAnimals, ArrayList<Animal> possibleEnemies, String bg, String planes) {
         this.name = name;
-        this.player = player;
-        this.enemy = enemy;
+        this.playableAnimals = playableAnimals;
+        this.possibleEnemies = possibleEnemies;
         this.bg = bg;
         this.planes = planes;
     }
 
-    public void endGameCondition() {
-        if (player.health <= 0) {
-            System.out.println("You Lost");
-        } else if (enemy.health <= 0) {
-            System.out.println("You Won");
-        }
-    }
 }

@@ -2,7 +2,7 @@ package pl.vik.GM;
 
 import java.util.ArrayList;
 
-public abstract class Animal {
+public class Animal {
     String name;
     Integer health;
     Integer energy;
