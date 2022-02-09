@@ -1,10 +1,15 @@
-package pl.vik.GM;
+package pl.vik.gm.levels;
 
+
+import pl.vik.gm.animals.Animal;
+import pl.vik.gm.animals.Bison;
+import pl.vik.gm.animals.Bull;
+import pl.vik.gm.animals.Wolf;
 
 import java.util.HashMap;
 
 public class FieldsAndWoods extends Level{
-    FieldsAndWoods() {
+    public FieldsAndWoods() {
         super();
         this.name = "Fields And Woods";
         this.bg = "light blue";

@@ -1,4 +1,4 @@
-package pl.vik.GM;
+package pl.vik.gm;
 
 public interface Actions {
     void attack(Skill skill);
@@ -7,7 +7,6 @@ public interface Actions {
     void makeMove();
     int regen(int efficiency);
     void afterRoundRegen();
-
     boolean haveEnergyToMakeThatMove(Skill skill);
     void useSkill(Skill skill);
 }

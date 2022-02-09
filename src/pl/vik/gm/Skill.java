@@ -1,8 +1,8 @@
-package pl.vik.GM;
+package pl.vik.gm;
 
 public class Skill {
 
-    enum skillType {
+    public enum skillType {
         ATTACK,
         HEAL,
         BUFF
@@ -15,8 +15,7 @@ public class Skill {
     Integer energyCost;
 
 
-    // Buff minEfficiency describe what kind of Buff, max ammount it buffs
-    Skill(String name,skillType type, Integer minEfficiency, Integer maxEfficiency, Integer energyCost) {
+    public Skill(String name, skillType type, Integer minEfficiency, Integer maxEfficiency, Integer energyCost) {
         this.name = name;
         this.type = type;
         this.maxEfficiency = maxEfficiency;

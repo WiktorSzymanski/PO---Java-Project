@@ -1,4 +1,4 @@
-package pl.vik.UI;
+package pl.vik.ui;
 
 enum View {
     MAIN_MENU,

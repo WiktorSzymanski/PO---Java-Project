@@ -1,5 +1,7 @@
-package pl.vik.GM;
+package pl.vik.gm;
 
+
+import pl.vik.gm.animals.Animal;
 
 import java.io.BufferedReader;
 import java.io.IOException;

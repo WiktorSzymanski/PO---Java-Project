@@ -1,17 +1,17 @@
-package pl.vik.UI;
+package pl.vik.ui;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel {
+public class MainMenuPanel extends JPanel {
     private final MainFrame mainFrame;
 
-    GamePanel(MainFrame mainFrame) {
+    MainMenuPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         this.setLayout(new GridLayout());
 
-        this.add(createMainMenuButton());
         this.add(createLoadButton());
+        this.add(createGameButton());
     }
 
     private JButton createLoadButton() {
@@ -20,9 +20,9 @@ public class GamePanel extends JPanel {
         return mainMenuButton;
     }
 
-    private JButton createMainMenuButton() {
-        JButton mainMenuButton = new JButton("Main Menu");
-        mainMenuButton.addActionListener(e -> mainFrame.openPanel(View.MAIN_MENU));
+    private JButton createGameButton() {
+        JButton mainMenuButton = new JButton("Game");
+        mainMenuButton.addActionListener(e -> mainFrame.openPanel(View.GAME));
         return mainMenuButton;
     }
 }

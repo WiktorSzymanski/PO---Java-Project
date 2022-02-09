@@ -1,4 +1,4 @@
-package pl.vik.UI;
+package pl.vik.ui;
 
 import javax.swing.*;
 import java.util.Map;

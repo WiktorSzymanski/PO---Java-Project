@@ -1,9 +1,14 @@
-package pl.vik.GM;
+package pl.vik.gm.levels;
+
+import pl.vik.gm.animals.Animal;
+import pl.vik.gm.animals.Ant;
+import pl.vik.gm.animals.Beetle;
+import pl.vik.gm.animals.Mantis;
 
 import java.util.HashMap;
 
 public class BesideGrass extends Level{
-    BesideGrass() {
+    public BesideGrass() {
         super();
         this.name = "Beside Grass";
         this.bg = "Green";

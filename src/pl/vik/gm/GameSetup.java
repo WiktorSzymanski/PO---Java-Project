@@ -1,4 +1,7 @@
-package pl.vik.GM;
+package pl.vik.gm;
+
+import pl.vik.gm.animals.Animal;
+import pl.vik.gm.levels.Level;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,6 +10,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GameSetup {
+
     public static int highestLevelComplited = 0;
 
     public Level currentLevel = null;
@@ -15,15 +19,17 @@ public class GameSetup {
     public Animal currentAnimalEnemy = null;
 
     // TODO: Clean this
-    //       Jakieś singletony
     //       Zwracanie jednego pozoimu nie wszystkich
 
 
-    private static HashMap<Integer,Level> allLevels = GameData.Levels();
+    private HashMap<Integer,Level> allLevels = null;
 
     public GameSetup() {
+        GameData gameData = GameData.getInstance();
+        allLevels = gameData.levels;
+
         currentLevel = levelPick();
-        printLevelDetails(currentLevel);
+        // printLevelDetails(currentLevel);
 
         currentAnimalPlayer = animalPick(currentLevel);
         currentAnimalEnemy = randomPick(currentLevel);

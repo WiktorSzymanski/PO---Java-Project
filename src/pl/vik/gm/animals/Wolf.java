@@ -1,9 +1,11 @@
-package pl.vik.GM;
+package pl.vik.gm.animals;
+
+import pl.vik.gm.Skill;
 
 import java.util.HashMap;
 
 public class Wolf extends Animal{
-    Wolf() {
+    public Wolf() {
         super();
         this.name = "Wolf";
         this.health = 75;
@@ -12,7 +14,7 @@ public class Wolf extends Animal{
         this.imgSource = "wolf.png";
     }
 
-    HashMap<Integer,Skill> Skills () {
+    HashMap<Integer, Skill> Skills () {
         HashMap<Integer,Skill> Skills = new HashMap<>();
         Skills.put(1,Attack());
         Skills.put(2,Heal());

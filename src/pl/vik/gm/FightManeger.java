@@ -1,4 +1,6 @@
-package pl.vik.GM;
+package pl.vik.gm;
+
+import pl.vik.gm.animals.Animal;
 
 public class FightManeger {
 

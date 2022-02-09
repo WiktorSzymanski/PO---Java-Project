@@ -1,7 +1,6 @@
 package pl.vik;
 
-import pl.vik.GM.GameSetup;
-import pl.vik.UI.MainFrame;
+import pl.vik.gm.GameSetup;
 
 public class Main {
 
