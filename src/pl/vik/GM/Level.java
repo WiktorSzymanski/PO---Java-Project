@@ -1,21 +1,14 @@
 package pl.vik.GM;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Level {
-    String name;
-    ArrayList<Animal> playableAnimals;
-    ArrayList<Animal> possibleEnemies;
-    String bg;
-    String planes;
+    protected String name;
+    protected HashMap<Integer,Animal> playableAnimals;
+    protected HashMap<Integer,Animal> possibleEnemies;
+    protected String bg;
+    protected String planes;
 
-
-    Level(String name,ArrayList<Animal> playableAnimals, ArrayList<Animal> possibleEnemies, String bg, String planes) {
-        this.name = name;
-        this.playableAnimals = playableAnimals;
-        this.possibleEnemies = possibleEnemies;
-        this.bg = bg;
-        this.planes = planes;
-    }
+    Level(){}
 
 }

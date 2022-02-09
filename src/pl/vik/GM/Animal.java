@@ -1,19 +1,14 @@
 package pl.vik.GM;
 
-import java.util.ArrayList;
+
+import java.util.HashMap;
 
 public class Animal {
-    String name;
-    Integer health;
-    Integer energy;
-    ArrayList<Skill> skills;
-    String imgSource;
+    protected String name;
+    protected Integer health;
+    protected Integer energy;
+    protected HashMap<Integer,Skill> skills;
+    protected String imgSource;
 
-    Animal(String name, Integer health, Integer energy, ArrayList<Skill> skills, String imgSource) {
-        this.name = name;
-        this.health = health;
-        this.energy = energy;
-        this.skills = skills;
-        this.imgSource = imgSource;
-    }
+    Animal(){}
 }

@@ -25,16 +25,14 @@ public class Player implements Actions{
     }
 
     public void printActionList() {
-        int idx = 1;
-        for ( Skill skill : player.skills) {
-            System.out.println(idx + ". " + skill.name + " (" + skill.minEfficiency + "-" + skill.maxEfficiency + " " + skill.type + ")");
-            idx += 1;
+        for ( Integer i : player.skills.keySet()) {
+            System.out.println(i + ". " + player.skills.get(i).name + " (" + player.skills.get(i).minEfficiency + "-" + player.skills.get(i).maxEfficiency + " " + player.skills.get(i).type + ")");
         }
     }
 
     @Override
     public void attack(Skill skill) {
-        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency - 1;
+        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency;
 
         fightManeger.dealDmg(efficiency);
         System.out.println("Player Attacked for " + efficiency);
@@ -42,7 +40,7 @@ public class Player implements Actions{
 
     @Override
     public void heal(Skill skill) {
-        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency - 1;
+        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency;
 
         if (currentHealth + efficiency < player.health) {
             currentHealth += efficiency;
@@ -59,23 +57,54 @@ public class Player implements Actions{
 
     @Override
     public void makeMove() {
-        printActionList();
-        System.out.println("Pick a skill you want to use: ");
         int skillNumber = 0;
-        try {
-            skillNumber = Integer.parseInt(reader.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
+        Skill skillToUse = null;
+
+        while (true) {
+            printActionList();
+            System.out.println("Pick a skill you want to use: ");
+            try {
+                skillNumber = Integer.parseInt(reader.readLine());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            skillToUse = player.skills.get(skillNumber);
+
+            if (haveEnergyToMakeThatMove(skillToUse)) {
+                break;
+            } else {
+                System.out.println("You don't have enough energy to perform this action");
+            }
         }
 
-        useSkill(player.skills.get(skillNumber-1));
+        useSkill(skillToUse);
+        currentEnergy -= skillToUse.energyCost;
     }
 
+    @Override
     public void useSkill(Skill skill) {
         switch (skill.type) {
             case ATTACK -> attack(skill);
             case HEAL -> heal(skill);
             case BUFF -> buff(skill);
         }
+    }
+
+    @Override
+    public void regen() {
+        if(currentEnergy + 3 > player.energy) {
+            currentEnergy = player.energy;
+        } else {
+            currentEnergy += 3;
+        }
+    }
+
+    @Override
+    public boolean haveEnergyToMakeThatMove(Skill skill) {
+        if (currentEnergy >= skill.energyCost) {
+            return true;
+        }
+        return false;
     }
 }

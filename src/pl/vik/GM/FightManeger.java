@@ -41,13 +41,17 @@ public class FightManeger {
     private boolean fight() {
         while (player.currentHealth > 0 && enemy.currentHealth > 0) {
             System.out.println("Player Health: " + player.currentHealth);
+            System.out.println("Player Energy: " + player.currentEnergy);
             System.out.println("Enemy Health: " + enemy.currentHealth);
+            System.out.println("Enemy Energy: " + enemy.currentEnergy);
             if (isPlayerTurn) {
                 player.makeMove();
                 isPlayerTurn = false;
+                enemy.regen();
             } else {
                 enemy.makeMove();
                 isPlayerTurn = true;
+                player.regen();
             }
         }
 

@@ -3,6 +3,7 @@ package pl.vik.GM;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Random;
 
 public class GameSetup {
@@ -11,12 +12,20 @@ public class GameSetup {
     public Animal currentAnimalPlayer = null;
     public Animal currentAnimalEnemy = null;
 
+    // TODO: Clean this
+    //       Jakieś singletony
+    //       Zwracanie jednego pozoimu nie wszystkich
+
+
+    private static HashMap<Integer,Level> allLevels = GameData.Levels();
+
     public GameSetup() {
         currentLevel = levelPick();
-
+        printLevelDetails(currentLevel);
 
         currentAnimalPlayer = animalPick(currentLevel);
         currentAnimalEnemy = randomPick(currentLevel);
+
         printAnimal(currentAnimalPlayer);
         printAnimal(currentAnimalEnemy);
 
@@ -38,7 +47,7 @@ public class GameSetup {
             e.printStackTrace();
         }
 
-        pickedLevel = GameData.Levels().get(action - 1);
+        pickedLevel = allLevels.get(action);
 
         return pickedLevel;
     }
@@ -47,7 +56,7 @@ public class GameSetup {
         Animal randomEnemy = null;
         Random random = new Random();
 
-        int randomNum = random.nextInt(3);
+        int randomNum = random.nextInt(level.possibleEnemies.size()) + 1;
 
         return level.possibleEnemies.get(randomNum);
     }
@@ -65,16 +74,15 @@ public class GameSetup {
             e.printStackTrace();
         }
 
-        pickedAnimal = level.playableAnimals.get(action - 1);
+        pickedAnimal = level.playableAnimals.get(action);
 
         return  pickedAnimal;
     }
 
     private void printLevels() {
-        int index = 1;
-        for (Level lv : GameData.Levels()) {
-            System.out.println(index + ". " + lv.name);
-            index += 1;
+
+        for (Integer i : allLevels.keySet()) {
+            System.out.println(i + ". " + allLevels.get(i).name);
         }
     }
 
@@ -91,21 +99,18 @@ public class GameSetup {
     }
 
     private void printPlayableLevelAnimals(Level level) {
-        int index = 1;
-        System.out.println(level.playableAnimals);
-        for (Animal animal : level.playableAnimals) {
-            System.out.print(index + ". ");
-            printAnimal(animal);
-            index += 1;
+        for (Integer i : level.playableAnimals.keySet()) {
+            System.out.print(i + ". ");
+            printAnimal(level.playableAnimals.get(i));
         }
     }
 
     private void printEnemyLevelAnimals(Level level) {
-        for (Animal animal : level.possibleEnemies) { printAnimal(animal); }
+        for (Integer i : level.possibleEnemies.keySet()) { printAnimal(level.possibleEnemies.get(i)); }
     }
 
     private void printAnimal(Animal animal) {
-        System.out.println("Animal name: " + animal.name);
+        System.out.println("Name: " + animal.name);
 //        System.out.println("Animal health: " + animal.health);
 //        System.out.println("Animal energy: " + animal.energy);
 //        System.out.println("Animal img source: " + animal.imgSource);
