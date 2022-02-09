@@ -1,4 +1,4 @@
-package pl.vik.gm;
+package pl.vik.gm.animals;
 
 public class Skill {
 
@@ -8,11 +8,11 @@ public class Skill {
         BUFF
     }
 
-    String name;
-    skillType type;
-    Integer maxEfficiency;
-    Integer minEfficiency;
-    Integer energyCost;
+    public String name;
+    public skillType type;
+    public Integer maxEfficiency;
+    public Integer minEfficiency;
+    public Integer energyCost;
 
 
     public Skill(String name, skillType type, Integer minEfficiency, Integer maxEfficiency, Integer energyCost) {

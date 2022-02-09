@@ -1,7 +1,5 @@
 package pl.vik.gm.animals;
 
-import pl.vik.gm.Skill;
-
 import java.util.HashMap;
 
 public class Bison extends Animal{

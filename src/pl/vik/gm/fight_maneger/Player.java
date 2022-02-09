@@ -1,6 +1,7 @@
-package pl.vik.gm;
+package pl.vik.gm.fight_maneger;
 
 
+import pl.vik.gm.animals.Skill;
 import pl.vik.gm.animals.Animal;
 
 import java.io.BufferedReader;

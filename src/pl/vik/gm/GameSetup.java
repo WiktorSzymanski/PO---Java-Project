@@ -1,6 +1,8 @@
 package pl.vik.gm;
 
 import pl.vik.gm.animals.Animal;
+import pl.vik.gm.animals.Skill;
+import pl.vik.gm.fight_maneger.FightManeger;
 import pl.vik.gm.levels.Level;
 
 import java.io.BufferedReader;
@@ -10,8 +12,6 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GameSetup {
-
-    public static int highestLevelComplited = 0;
 
     public Level currentLevel = null;
     public int currentLevelId = 0;
@@ -23,27 +23,46 @@ public class GameSetup {
 
 
     private HashMap<Integer,Level> allLevels = null;
+    private GameData gameData = null;
 
     public GameSetup() {
-        GameData gameData = GameData.getInstance();
+        gameData = GameData.getInstance();
         allLevels = gameData.levels;
 
-        currentLevel = levelPick();
-        // printLevelDetails(currentLevel);
+        while (true) {
+            currentLevel = levelPick();
 
-        currentAnimalPlayer = animalPick(currentLevel);
-        currentAnimalEnemy = randomPick(currentLevel);
+            currentAnimalPlayer = animalPick(currentLevel);
+            currentAnimalEnemy = randomPick(currentLevel);
 
-        printAnimal(currentAnimalPlayer);
-        printAnimal(currentAnimalEnemy);
+//        printAnimal(currentAnimalPlayer);
+//        printAnimal(currentAnimalEnemy);
 
-        boolean passedLevel = FightManeger.returnFightResult(currentAnimalPlayer, currentAnimalEnemy);
+            boolean passedLevel = FightManeger.returnFightResult(currentAnimalPlayer, currentAnimalEnemy);
 
-        if (passedLevel) {
-            highestLevelComplited = currentLevelId;
+            if (passedLevel) {
+                gameData.highestLevelComplited = currentLevelId;
+            }
+
+            if (ifBack()) {
+                break;
+            }
         }
     }
 
+    private boolean ifBack() {
+        System.out.println("0 - go back to menu, nothing to continue");
+
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+        int action = 0;
+        try {
+            action = Integer.parseInt(input.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return action == 0;
+    }
 
     private Level levelPick() {
         Level pickedLevel = null;
@@ -96,7 +115,7 @@ public class GameSetup {
 
         for (Integer i : allLevels.keySet()) {
             System.out.println(i + ". " + allLevels.get(i).name);
-            if (i > highestLevelComplited) {
+            if (i > gameData.highestLevelComplited) {
                 break;
             }
         }
@@ -141,4 +160,5 @@ public class GameSetup {
         System.out.println("Skill max ef: " + skill.maxEfficiency);
         System.out.println("Skill min ef: " + skill.minEfficiency);
     }
+
 }

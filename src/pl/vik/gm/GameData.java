@@ -11,6 +11,7 @@ public class GameData {
     private static GameData gameData;
 
     public HashMap<Integer, Level> levels = null;
+    public int highestLevelComplited = 0;
 
     private GameData() {
         this.levels = levels();

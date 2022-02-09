@@ -1,4 +1,6 @@
-package pl.vik.gm;
+package pl.vik.gm.fight_maneger;
+
+import pl.vik.gm.animals.Skill;
 
 public interface Actions {
     void attack(Skill skill);
