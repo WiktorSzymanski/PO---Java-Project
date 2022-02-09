@@ -10,7 +10,7 @@ public class FightManeger {
     private Player player = null;
     private Enemy enemy = null;
 
-    public boolean playerWon;
+    public static boolean playerWon;
 
     public FightManeger(Animal player, Animal enemy) {
         this.playerAnimal = player;
@@ -21,6 +21,13 @@ public class FightManeger {
 
         playerWon = fight();
         System.out.println("Player Won: " + playerWon);
+
+    }
+
+    public static boolean returnFightResult(Animal player, Animal enemy) {
+        new FightManeger(player, enemy);
+
+        return playerWon;
     }
 
     public void dealDmg(int ammount) {

@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GameSetup {
+    public static int highestLevelComplited = 0;
 
     public Level currentLevel = null;
+    public int currentLevelId = 0;
     public Animal currentAnimalPlayer = null;
     public Animal currentAnimalEnemy = null;
 
@@ -29,7 +31,11 @@ public class GameSetup {
         printAnimal(currentAnimalPlayer);
         printAnimal(currentAnimalEnemy);
 
-        new FightManeger(currentAnimalPlayer, currentAnimalEnemy);
+        boolean passedLevel = FightManeger.returnFightResult(currentAnimalPlayer, currentAnimalEnemy);
+
+        if (passedLevel) {
+            highestLevelComplited = currentLevelId;
+        }
     }
 
 
@@ -48,6 +54,7 @@ public class GameSetup {
         }
 
         pickedLevel = allLevels.get(action);
+        currentLevelId = action;
 
         return pickedLevel;
     }
@@ -83,6 +90,9 @@ public class GameSetup {
 
         for (Integer i : allLevels.keySet()) {
             System.out.println(i + ". " + allLevels.get(i).name);
+            if (i > highestLevelComplited) {
+                break;
+            }
         }
     }
 

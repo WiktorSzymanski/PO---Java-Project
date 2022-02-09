@@ -13,12 +13,12 @@ public class Beetle extends Animal{
     }
 
     HashMap<Integer,Skill> antSkills () {
-        HashMap<Integer,Skill> antSkills = new HashMap<>();
-        antSkills.put(1,Attack());
-        antSkills.put(2,Heal());
-        antSkills.put(3,Buff());
+        HashMap<Integer,Skill> Skills = new HashMap<>();
+        Skills.put(1,Attack());
+        Skills.put(2,Heal());
+        Skills.put(3,Buff());
 
-        return antSkills;
+        return Skills;
     }
 
     Skill Attack() {

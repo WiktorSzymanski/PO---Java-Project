@@ -8,11 +8,11 @@ public class Ant extends Animal{
         this.name = "Ant";
         this.health = 15;
         this.energy = 15;
-        this.skills = antSkills();
+        this.skills = Skills();
         this.imgSource = "ant.png";
     }
 
-    HashMap<Integer,Skill> antSkills () {
+    HashMap<Integer,Skill> Skills () {
         HashMap<Integer,Skill> antSkills = new HashMap<>();
         antSkills.put(1,Attack());
         antSkills.put(2,Heal());
