@@ -26,10 +26,10 @@ public class Beetle extends Animal{
     }
 
     Skill Heal() {
-        return new Skill("Health Regen", Skill.skillType.HEAL, 1,3, 5);
+        return new Skill("Health Regen", Skill.skillType.HEAL, 3,4, 5);
     }
 
     Skill Buff() {
-        return new Skill("Energy Regen", Skill.skillType.BUFF, 1, 6, 0);
+        return new Skill("Energy Regen", Skill.skillType.BUFF, 4, 6, 0);
     }
 }

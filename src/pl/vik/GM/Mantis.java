@@ -30,6 +30,6 @@ public class Mantis extends Animal{
     }
 
     Skill Buff() {
-        return new Skill("Energy Regen", Skill.skillType.BUFF, 1, 5, 0);
+        return new Skill("Energy Regen", Skill.skillType.BUFF, 1, 4, 0);
     }
 }

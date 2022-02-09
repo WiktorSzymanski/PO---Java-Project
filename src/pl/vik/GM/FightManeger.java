@@ -47,11 +47,11 @@ public class FightManeger {
             if (isPlayerTurn) {
                 player.makeMove();
                 isPlayerTurn = false;
-                enemy.regen();
+                enemy.afterRoundRegen();
             } else {
                 enemy.makeMove();
                 isPlayerTurn = true;
-                player.regen();
+                player.afterRoundRegen();
             }
         }
 

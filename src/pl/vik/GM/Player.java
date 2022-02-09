@@ -26,7 +26,7 @@ public class Player implements Actions{
 
     public void printActionList() {
         for ( Integer i : player.skills.keySet()) {
-            System.out.println(i + ". " + player.skills.get(i).name + " (" + player.skills.get(i).minEfficiency + "-" + player.skills.get(i).maxEfficiency + " " + player.skills.get(i).type + ")");
+            System.out.println(i + ". " + player.skills.get(i).name + " (" + player.skills.get(i).minEfficiency + "-" + player.skills.get(i).maxEfficiency + " " + player.skills.get(i).type + ") energy Cost: " + player.skills.get(i).energyCost);
         }
     }
 
@@ -52,7 +52,9 @@ public class Player implements Actions{
 
     @Override
     public void buff(Skill skill) {
-        System.out.println("Player used Buff and did nothing");
+        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency;
+
+        System.out.println("Player rested (restored " + regen(efficiency) + " energy)");
     }
 
     @Override
@@ -92,12 +94,20 @@ public class Player implements Actions{
     }
 
     @Override
-    public void regen() {
-        if(currentEnergy + 3 > player.energy) {
+    public int regen(int efficiency) {
+        if(currentEnergy + efficiency > player.energy) {
+            int restored = player.energy-currentEnergy;
             currentEnergy = player.energy;
+            return restored;
         } else {
-            currentEnergy += 3;
+            currentEnergy += efficiency;
+            return efficiency;
         }
+    }
+
+    @Override
+    public void afterRoundRegen() {
+        regen(3);
     }
 
     @Override

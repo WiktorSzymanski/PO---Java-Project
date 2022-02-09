@@ -30,6 +30,6 @@ public class Ant extends Animal{
     }
 
     Skill Buff() {
-        return new Skill("Energy Regen", Skill.skillType.BUFF, 1, 3, 0);
+        return new Skill("Energy Regen", Skill.skillType.BUFF, 3, 4, 0);
     }
 }

@@ -40,8 +40,12 @@ public class Enemy implements Actions {
 
     @Override
     public void buff(Skill skill) {
-        System.out.println("Enemy used Buff and did nothing");
+        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency;
+
+
+        System.out.println("Enemy rested (restored " + regen(efficiency) + " energy)");
     }
+
 
     @Override
     public void makeMove() {
@@ -55,11 +59,14 @@ public class Enemy implements Actions {
     }
 
     @Override
-    public void regen() {
-        if(currentEnergy + 3 > enemy.energy) {
+    public int regen(int efficiency) {
+        if(currentEnergy + efficiency > enemy.energy) {
+            int restored = enemy.energy-currentEnergy;
             currentEnergy = enemy.energy;
+            return restored;
         } else {
-            currentEnergy += 3;
+            currentEnergy += efficiency;
+            return efficiency;
         }
     }
 
@@ -70,6 +77,11 @@ public class Enemy implements Actions {
             case HEAL -> heal(skill);
             case BUFF -> buff(skill);
         }
+    }
+
+    @Override
+    public void afterRoundRegen() {
+        regen(3);
     }
 
     @Override
