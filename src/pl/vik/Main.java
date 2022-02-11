@@ -1,5 +1,6 @@
 package pl.vik;
 
+import pl.vik.gm.Achievements;
 import pl.vik.gm.GameSetup;
 import pl.vik.gm.save_load.SaveGame;
 import pl.vik.gm.save_load.LoadGame;
@@ -11,7 +12,9 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+
+        //new MainFrame();
 
         while (true) {
 
@@ -21,13 +24,14 @@ public class Main {
                     new GameSetup();
                     break;
                 case 2:
-                    new MainFrame();
-                    break;
-                case 3:
                     new SaveGame();
                     break;
-                case 4:
+                case 3:
                     new LoadGame();
+                    break;
+                case 4:
+                    new Achievements();
+
                     break;
                 case 5:
                     return;
@@ -37,7 +41,7 @@ public class Main {
     }
 
     public static int action() {
-        System.out.println("What you want to do?\n1. Play game\n2. Open Mainframe\n3. Save\n4. Load\n5. Exit");
+        System.out.println("What you want to do?\n1. Play game\n2. Save\n3. Load\n4. Achievements\n5. Exit");
 
 
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));

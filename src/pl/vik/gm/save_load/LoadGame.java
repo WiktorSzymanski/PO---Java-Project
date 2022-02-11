@@ -1,28 +1,30 @@
 package pl.vik.gm.save_load;
 
+import pl.vik.gm.Data;
 import pl.vik.gm.GameData;
 
 import java.beans.beancontext.BeanContextChild;
 import java.io.*;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class LoadGame {
-    DataInputStream inputStream = null;
+    ObjectInputStream inputStream = null;
 
     GameData gameData = GameData.getInstance();
 
-    public LoadGame() throws IOException {
+    public LoadGame() throws IOException, ClassNotFoundException {
         String fileName = selectFile(getFilesMap());
 
         load(fileName);
     }
 
-    private void load(String fileName) throws IOException {
+    private void load(String fileName) throws IOException, ClassNotFoundException {
         String filePatch = "saves/" + fileName;
 
         try {
-            inputStream = new DataInputStream(new FileInputStream(filePatch));
-            gameData.highestLevelComplited = inputStream.readInt();
+            inputStream = new ObjectInputStream(new FileInputStream(filePatch));
+            gameData.setData((Data) inputStream.readObject());
         } finally {
             if(inputStream != null) {
                 inputStream.close();

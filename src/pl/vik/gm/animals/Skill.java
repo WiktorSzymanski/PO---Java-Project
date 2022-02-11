@@ -1,6 +1,8 @@
 package pl.vik.gm.animals;
 
-public class Skill {
+import java.io.Serializable;
+
+public class Skill implements Serializable {
 
     public enum skillType {
         ATTACK,

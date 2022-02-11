@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class MainFrame extends JFrame {
 
-    private static final String TITLE = "Name";
+    private static final String TITLE = "THE game";
     private static final int WIDTH = 600;
     private static final int HEIGHT = 600;
 

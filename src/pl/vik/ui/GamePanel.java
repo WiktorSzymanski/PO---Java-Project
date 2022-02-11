@@ -8,7 +8,7 @@ public class GamePanel extends JPanel {
 
     GamePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
-        this.setLayout(new GridLayout());
+        this.setLayout(new GridLayout(2,1));
 
         this.add(createMainMenuButton());
         this.add(createLoadButton());

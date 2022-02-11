@@ -27,7 +27,7 @@ public class GameSetup {
 
     public GameSetup() {
         gameData = GameData.getInstance();
-        allLevels = gameData.levels;
+        allLevels = gameData.data.levels;
 
         while (true) {
             currentLevel = levelPick();
@@ -41,7 +41,8 @@ public class GameSetup {
             boolean passedLevel = FightManeger.returnFightResult(currentAnimalPlayer, currentAnimalEnemy);
 
             if (passedLevel) {
-                gameData.highestLevelComplited = currentLevelId;
+                gameData.highestLevelCompleted = currentLevelId;
+                gameData.achievementCheck(currentAnimalEnemy.name);
             }
 
             if (ifBack()) {
@@ -115,7 +116,7 @@ public class GameSetup {
 
         for (Integer i : allLevels.keySet()) {
             System.out.println(i + ". " + allLevels.get(i).name);
-            if (i > gameData.highestLevelComplited) {
+            if (i > gameData.highestLevelCompleted) {
                 break;
             }
         }

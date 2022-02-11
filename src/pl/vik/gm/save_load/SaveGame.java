@@ -1,13 +1,15 @@
 package pl.vik.gm.save_load;
 
+
 import pl.vik.gm.GameData;
+
 
 import java.io.*;
 
 
 public class SaveGame {
     String filePatch = "saves/";
-    DataOutputStream outputStream = null;
+    ObjectOutputStream outputStream = null;
 
     GameData gameData = GameData.getInstance();
 
@@ -15,8 +17,10 @@ public class SaveGame {
         filePatch += getFileName();
 
         try {
-            outputStream = new DataOutputStream(new FileOutputStream(filePatch));
-            outputStream.writeInt(gameData.highestLevelComplited);
+            outputStream = new ObjectOutputStream(new FileOutputStream(filePatch));
+            outputStream.writeObject(gameData.data);
+        } catch (IOException e) {
+            e.toString();
         } finally {
             if(outputStream != null) {
                 outputStream.close();
@@ -26,17 +30,17 @@ public class SaveGame {
         System.out.println("Game Saved");
     }
 
-    private String getFileName() {
+    private String getFileName(){
         String fileName = null;
 
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
         try {
-            fileName = input.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
+            fileName = Validators.getFileNameFromKeyboard(input.readLine());
+        } catch (IOException | EmptyLabelException | NoSpacesInNameAllowed e) {
+            System.out.println(e.toString());
+            fileName = getFileName();
         }
-
         return fileName;
     }
 }

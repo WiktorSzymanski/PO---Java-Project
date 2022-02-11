@@ -1,9 +1,10 @@
 package pl.vik.gm.animals;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public abstract class Animal {
+public abstract class Animal implements Serializable {
     public String name;
     public Integer health;
     public Integer energy;
