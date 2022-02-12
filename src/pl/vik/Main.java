@@ -14,9 +14,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-        //new MainFrame();
+        new MainFrame();
 
-        while (true) {
+        /*while (true) {
 
 
             switch (action()) {
@@ -37,6 +37,7 @@ public class Main {
                     return;
             }
         }
+        */
 
     }
 

@@ -5,6 +5,8 @@ enum View {
     LOAD,
     SAVE,
     GAME,
+    LEVEL_SELECT,
+    ANIMAL_SELECT,
     ACHIEVEMENTS
 }
 

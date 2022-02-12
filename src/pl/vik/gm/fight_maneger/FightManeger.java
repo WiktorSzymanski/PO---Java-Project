@@ -9,8 +9,8 @@ public class FightManeger {
 
     private boolean isPlayerTurn = true;
 
-    private Player player = null;
-    private Enemy enemy = null;
+    public Player player = null;
+    public Enemy enemy = null;
 
     public static boolean playerWon;
 
@@ -21,8 +21,8 @@ public class FightManeger {
         this.player = new Player(this);
         this.enemy = new Enemy(this);
 
-        playerWon = fight();
-        System.out.println("Player Won: " + playerWon);
+        //playerWon = fight();
+        //System.out.println("Player Won: " + playerWon);
 
     }
 

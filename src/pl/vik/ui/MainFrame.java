@@ -1,5 +1,8 @@
 package pl.vik.ui;
 
+import pl.vik.gm.GameData;
+import pl.vik.gm.levels.Level;
+
 import javax.swing.*;
 import java.util.Map;
 
@@ -14,7 +17,11 @@ public class MainFrame extends JFrame {
     private final Map<View, JPanel> views = Map.of(
             View.MAIN_MENU, new MainMenuPanel(this),
             View.GAME, new GamePanel(this),
-            View.LOAD, new LoadPanel(this));
+            View.LOAD, new LoadPanel(this),
+            View.SAVE, new SavePanel(this),
+            View.LEVEL_SELECT, new LevelSelectPanel(this),
+            View.ANIMAL_SELECT, new AnimalSelectPanel(this),
+            View.ACHIEVEMENTS, new AchievementsPanel(this));
 
     public MainFrame() {
         this.setTitle(TITLE);
@@ -32,6 +39,30 @@ public class MainFrame extends JFrame {
         this.remove(views.get(currentView));
         currentView = viewToOpen;
         this.add(views.get(currentView));
+        this.refreshView();
+    }
+
+    public void openAnimalPanel(Integer levelId) {
+        this.remove(views.get(currentView));
+
+        AnimalSelectPanel animalPanel = (AnimalSelectPanel) views.get(View.ANIMAL_SELECT);
+        animalPanel.setLevel(levelId);
+        animalPanel.render();
+
+        currentView = View.ANIMAL_SELECT;
+        this.add(animalPanel);
+        this.refreshView();
+    }
+
+    public void openGamePanel(Integer levelId, Integer playerAnimalId, Integer enemyAnimalId) {
+        this.remove(views.get(currentView));
+
+        GamePanel gamePanel = (GamePanel) views.get(View.GAME);
+        gamePanel.setGameData(levelId, playerAnimalId, enemyAnimalId);
+        gamePanel.render();
+
+        currentView = View.GAME;
+        this.add(gamePanel);
         this.refreshView();
     }
 

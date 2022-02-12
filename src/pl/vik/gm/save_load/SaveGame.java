@@ -20,7 +20,7 @@ public class SaveGame {
             outputStream = new ObjectOutputStream(new FileOutputStream(filePatch));
             outputStream.writeObject(gameData.data);
         } catch (IOException e) {
-            e.toString();
+            e.printStackTrace();
         } finally {
             if(outputStream != null) {
                 outputStream.close();
@@ -31,7 +31,7 @@ public class SaveGame {
     }
 
     private String getFileName(){
-        String fileName = null;
+        String fileName;
 
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 

@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public class Data implements Serializable {
+    public int highestLevelCompleted;
     public HashMap<Integer, Level> levels = null;
     public HashMap<String, Boolean> achievements = null;
 }

@@ -13,11 +13,12 @@ public class GameData {
 
     public Data data = new Data();
 
-    public int highestLevelCompleted = 0;
+
 
     private GameData() {
         this.data.levels = levels();
         this.data.achievements = achievements();
+        this.data.highestLevelCompleted = 0;
     }
 
     public static GameData getInstance() {
