@@ -51,14 +51,22 @@ public class Enemy implements Actions {
 
 
     @Override
-    public void makeMove() {
-        Skill skillToUse = enemy.skills.get(1);
-        if (haveEnergyToMakeThatMove(skillToUse)) {
-            useSkill(skillToUse);
-            currentEnergy -= skillToUse.energyCost;
-        } else {
+    public boolean makeMove(Skill skill) {
+        if (haveEnergyToMakeThatMove(skill)) {
+            useSkill(skill);
+            currentEnergy -= skill.energyCost;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public void enemyAI() {
+        if (!makeMove(enemy.skills.get(1))) {
             useSkill(enemy.skills.get(3));
         }
+
     }
 
     @Override

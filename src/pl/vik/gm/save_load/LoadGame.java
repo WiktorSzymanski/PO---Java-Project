@@ -9,25 +9,31 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class LoadGame {
-    ObjectInputStream inputStream = null;
+    static ObjectInputStream inputStream = null;
 
-    GameData gameData = GameData.getInstance();
+    static GameData gameData = GameData.getInstance();
 
-    public LoadGame() throws IOException, ClassNotFoundException {
+    public LoadGame() {
         String fileName = selectFile(getFilesMap());
 
         load(fileName);
     }
 
-    private void load(String fileName) throws IOException, ClassNotFoundException {
+    public static void load(String fileName) {
         String filePatch = "saves/" + fileName;
 
         try {
             inputStream = new ObjectInputStream(new FileInputStream(filePatch));
             gameData.setData((Data) inputStream.readObject());
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
         } finally {
             if(inputStream != null) {
-                inputStream.close();
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("Game Loaded");
             }
         }
@@ -53,7 +59,7 @@ public class LoadGame {
         return filesNames.get(action);
     }
 
-    private HashMap<Integer, String> getFilesMap() {
+    public static HashMap<Integer, String> getFilesMap() {
         File folder = new File("saves");
         File[] listOfFiles = folder.listFiles();
 

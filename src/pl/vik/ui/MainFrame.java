@@ -54,6 +54,29 @@ public class MainFrame extends JFrame {
         this.refreshView();
     }
 
+    public void openAchievementsPanel() {
+        this.remove(views.get(currentView));
+
+        AchievementsPanel achievementsPanel = (AchievementsPanel) views.get(View.ACHIEVEMENTS);
+        achievementsPanel.render();
+
+        currentView = View.ACHIEVEMENTS;
+        this.add(achievementsPanel);
+        this.refreshView();
+    }
+
+    public void openLoadPanel() {
+        this.remove(views.get(currentView));
+
+        LoadPanel loadPanel = (LoadPanel) views.get(View.LOAD);
+        loadPanel.render();
+
+        currentView = View.LOAD;
+        this.add(loadPanel);
+        this.refreshView();
+    }
+
+
     public void openGamePanel(Integer levelId, Integer playerAnimalId, Integer enemyAnimalId) {
         this.remove(views.get(currentView));
 

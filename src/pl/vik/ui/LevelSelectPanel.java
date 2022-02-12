@@ -4,6 +4,7 @@ import pl.vik.gm.GameData;
 import pl.vik.gm.levels.Level;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class LevelSelectPanel extends JPanel {
     private final MainFrame mainFrame;
@@ -16,8 +17,14 @@ public class LevelSelectPanel extends JPanel {
         this.mainFrame = mainFrame;
         this.gameData = GameData.getInstance();
 
+        GridLayout gridLayout = new GridLayout(0,1);
+        gridLayout.setVgap(10);
+        gridLayout.setHgap(10);
+        setLayout(gridLayout);
+
         createAllLvButtons(this);
-        this.add(createMainMenuButton());
+        add(new JLabel());
+        add(createMainMenuButton());
     }
 
     private void createAllLvButtons(JPanel panel) {
@@ -33,7 +40,7 @@ public class LevelSelectPanel extends JPanel {
     }
 
     private JButton createMainMenuButton() {
-        JButton mainMenuButton = new JButton("Main Menu");
+        JButton mainMenuButton = new JButton("Back");
         mainMenuButton.addActionListener(e -> mainFrame.openPanel(View.MAIN_MENU));
         return mainMenuButton;
     }

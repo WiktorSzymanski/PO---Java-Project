@@ -1,15 +1,16 @@
 package pl.vik.gm.animals;
 
+import javax.swing.*;
 import java.util.HashMap;
 
-public class Mantis extends Animal{
-    public Mantis() {
+public class Spider extends Animal{
+    public Spider() {
         super();
-        this.name = "Mantis";
+        this.name = "Spider";
         this.health = 20;
         this.energy = 15;
         this.skills = Skills();
-        this.imgSource = "ant.png";
+        this.image = new ImageIcon("img/spider.png");
     }
 
     HashMap<Integer, Skill> Skills () {

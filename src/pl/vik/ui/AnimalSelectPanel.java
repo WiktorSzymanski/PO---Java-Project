@@ -21,11 +21,15 @@ public class AnimalSelectPanel extends JPanel {
         this.mainFrame = mainFrame;
         this.gameData = GameData.getInstance();
 
-        this.setLayout(new GridLayout(0,1));
+        GridLayout gridLayout = new GridLayout(0,1);
+        gridLayout.setVgap(10);
+        gridLayout.setHgap(10);
+        this.setLayout(gridLayout);
     }
 
     public void render() {
         createAllAnimalsButtons();
+        add(new JLabel());
         add(createBackButton());
     }
 

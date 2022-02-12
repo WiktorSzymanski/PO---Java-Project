@@ -8,13 +8,14 @@ import java.io.*;
 
 
 public class SaveGame {
-    String filePatch = "saves/";
-    ObjectOutputStream outputStream = null;
+    static String filePatch = "saves/";
+    static ObjectOutputStream outputStream = null;
 
-    GameData gameData = GameData.getInstance();
+    static GameData gameData = GameData.getInstance();
 
-    public SaveGame() throws IOException {
-        filePatch += getFileName();
+    public static void saveGame(String fileName){
+//        filePatch += getFileName();
+        filePatch += fileName;
 
         try {
             outputStream = new ObjectOutputStream(new FileOutputStream(filePatch));
@@ -23,26 +24,30 @@ public class SaveGame {
             e.printStackTrace();
         } finally {
             if(outputStream != null) {
-                outputStream.close();
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
         System.out.println("Game Saved");
     }
 
-    private String getFileName(){
-        String fileName;
-
-        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-
-        try {
-            fileName = Validators.getFileNameFromKeyboard(input.readLine());
-        } catch (IOException | EmptyLabelException | NoSpacesInNameAllowed e) {
-            System.out.println(e.toString());
-            fileName = getFileName();
-        }
-        return fileName;
-    }
+//    private String getFileName(){
+//        String fileName;
+//
+//        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+//
+//        try {
+//            fileName = Validators.getFileNameFromKeyboard(input.readLine());
+//        } catch (IOException | EmptyLabelException | NoSpacesInNameAllowed e) {
+//            System.out.println(e.toString());
+//            fileName = getFileName();
+//        }
+//        return fileName;
+//    }
 }
 
 

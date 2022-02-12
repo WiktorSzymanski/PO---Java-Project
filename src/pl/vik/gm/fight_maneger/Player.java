@@ -5,7 +5,6 @@ import pl.vik.gm.animals.Skill;
 import pl.vik.gm.animals.Animal;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
@@ -60,31 +59,43 @@ public class Player implements Actions{
         System.out.println("Player rested (restored " + regen(efficiency) + " energy)");
     }
 
+    // For console test
+//    @Override
+//    public void makeMove() {
+//        int skillNumber = 0;
+//        Skill skillToUse = null;
+//
+//        while (true) {
+//            printActionList();
+//            System.out.println("Pick a skill you want to use: ");
+//            try {
+//                skillNumber = Integer.parseInt(reader.readLine());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            skillToUse = player.skills.get(skillNumber);
+//
+//            if (haveEnergyToMakeThatMove(skillToUse)) {
+//                break;
+//            } else {
+//                System.out.println("You don't have enough energy to perform this action");
+//            }
+//        }
+//
+//        useSkill(skillToUse);
+//        currentEnergy -= skillToUse.energyCost;
+//    }
+
     @Override
-    public void makeMove() {
-        int skillNumber = 0;
-        Skill skillToUse = null;
-
-        while (true) {
-            printActionList();
-            System.out.println("Pick a skill you want to use: ");
-            try {
-                skillNumber = Integer.parseInt(reader.readLine());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            skillToUse = player.skills.get(skillNumber);
-
-            if (haveEnergyToMakeThatMove(skillToUse)) {
-                break;
-            } else {
-                System.out.println("You don't have enough energy to perform this action");
-            }
+    public boolean makeMove(Skill skill) {
+        if (haveEnergyToMakeThatMove(skill)) {
+            useSkill(skill);
+            currentEnergy -= skill.energyCost;
+            return true;
         }
 
-        useSkill(skillToUse);
-        currentEnergy -= skillToUse.energyCost;
+        return false;
     }
 
     @Override

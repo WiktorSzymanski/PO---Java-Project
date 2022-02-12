@@ -8,7 +8,10 @@ public class MainMenuPanel extends JPanel {
 
     MainMenuPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
-        this.setLayout(new GridLayout(0,1));
+        GridLayout gridLayout = new GridLayout(0,1);
+        gridLayout.setVgap(10);
+        gridLayout.setHgap(10);
+        this.setLayout(gridLayout);
 
         this.add(new JLabel("THE game"));
         this.add(createLevelSelectButton());
@@ -20,7 +23,7 @@ public class MainMenuPanel extends JPanel {
 
     private JButton createLoadButton() {
         JButton loadButton = new JButton("Load");
-        loadButton.addActionListener(e -> mainFrame.openPanel(View.LOAD));
+        loadButton.addActionListener(e -> mainFrame.openLoadPanel());
         return loadButton;
     }
 
@@ -38,7 +41,7 @@ public class MainMenuPanel extends JPanel {
 
     private JButton createAchievementsButton() {
         JButton achievementsButton = new JButton("Achievements");
-        achievementsButton.addActionListener(e -> mainFrame.openPanel(View.ACHIEVEMENTS));
+        achievementsButton.addActionListener(e -> mainFrame.openAchievementsPanel());
         return achievementsButton;
     }
 

@@ -38,16 +38,16 @@ public class GameSetup {
 //        printAnimal(currentAnimalPlayer);
 //        printAnimal(currentAnimalEnemy);
 
-            boolean passedLevel = FightManeger.returnFightResult(currentAnimalPlayer, currentAnimalEnemy);
-
-            if (passedLevel) {
-                gameData.data.highestLevelCompleted = currentLevelId;
-                gameData.achievementCheck(currentAnimalEnemy.name);
-            }
-
-            if (ifBack()) {
-                break;
-            }
+//            boolean passedLevel = FightManeger.returnFightResult(currentAnimalPlayer, currentAnimalEnemy);
+//
+//            if (passedLevel) {
+//                gameData.data.highestLevelCompleted = currentLevelId;
+//                gameData.achievementCheck(currentAnimalEnemy.name);
+//            }
+//
+//            if (ifBack()) {
+//                break;
+//            }
         }
     }
 

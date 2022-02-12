@@ -4,8 +4,8 @@ public class Achievements {
     GameData gameData = GameData.getInstance();
 
     public Achievements() {
-        for (String name : gameData.data.achievements.keySet()) {
-            System.out.println("Win against " + name + " : " + gameData.data.achievements.get(name));
+        for (Achievement achievement : gameData.data.achievements) {
+            System.out.println(achievement.name + " : " + achievement.completed);
         }
     }
 }

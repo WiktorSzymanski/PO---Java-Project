@@ -5,6 +5,7 @@ import pl.vik.gm.levels.FieldsAndWoods;
 import pl.vik.gm.levels.Level;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameData {
@@ -45,21 +46,26 @@ public class GameData {
         return levels;
     }
 
-    private HashMap<String,Boolean> achievements() {
-        HashMap<String, Boolean> achievements = new HashMap<>();
+    private ArrayList<Achievement> achievements() {
+        ArrayList<Achievement> achievements = new ArrayList<>();
 
         for(Integer i : data.levels.keySet()) {
             for(Integer j : data.levels.get(i).possibleEnemies.keySet()) {
-                String achievementName = data.levels.get(i).possibleEnemies.get(j).name;
-                achievements.put(achievementName, false);
+                String animalName = data.levels.get(i).possibleEnemies.get(j).name;
+                achievements.add(new Achievement("Defeat " + animalName, data.levels.get(i).possibleEnemies.get(j).image, animalName));
             }
         }
 
         return achievements;
     }
 
-    public void achievementCheck(String name) {
-        this.data.achievements.replace(name,true);
+    public void achievementCheck(String enemyName) {
+        for (Achievement achievement : data.achievements) {
+            if (achievement.defToGet == enemyName) {
+                System.out.println(achievement.name + " should be completed now");
+                achievement.completed = true;
+            }
+        }
     }
 }
 
