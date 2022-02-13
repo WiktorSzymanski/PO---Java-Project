@@ -5,14 +5,16 @@ import pl.vik.gm.animals.Ant;
 import pl.vik.gm.animals.Beetle;
 import pl.vik.gm.animals.Spider;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 
 public class BesideGrass extends Level{
     public BesideGrass() {
         super();
         this.name = "Beside Grass";
-        this.bg = "Green";
-        this.planes = "Brown";
+        this.bg = new ImageIcon("img/grass.png").getImage();
+        this.planes = new Color(	170, 90, 29);
         this.playableAnimals = playableAnimals();
         this.possibleEnemies = possibleEnemies();
     }

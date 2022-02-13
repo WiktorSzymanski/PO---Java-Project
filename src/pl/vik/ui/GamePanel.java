@@ -7,6 +7,7 @@ import pl.vik.gm.levels.Level;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Area;
 
 public class GamePanel extends JPanel {
     private final MainFrame mainFrame;
@@ -205,5 +206,13 @@ public class GamePanel extends JPanel {
 
     public static void printNoEnergyAlert(String alert) {
         noEnergyLabel.setText(alert);
+    }
+
+    public void paintComponent(Graphics g) {
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.drawImage(level.bg,0,0,this);
+        g2D.setPaint(level.planes);
+        g2D.fillOval(55, 233,200, 100);
+        g2D.fillOval(340,73, 200, 100);
     }
 }

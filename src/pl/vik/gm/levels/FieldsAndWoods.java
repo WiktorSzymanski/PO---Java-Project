@@ -6,14 +6,16 @@ import pl.vik.gm.animals.Bison;
 import pl.vik.gm.animals.Bull;
 import pl.vik.gm.animals.Wolf;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 
 public class FieldsAndWoods extends Level{
     public FieldsAndWoods() {
         super();
         this.name = "Fields And Woods";
-        this.bg = "light blue";
-        this.planes = "light green";
+        this.bg = new ImageIcon("img/field.png").getImage();
+        this.planes = new Color(53, 102, 49);
         this.playableAnimals = playableAnimals();
         this.possibleEnemies = possibleEnemies();
     }
