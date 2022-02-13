@@ -1,15 +1,12 @@
 package pl.vik.ui;
 
-import pl.vik.gm.save_load.EmptyLabelException;
-import pl.vik.gm.save_load.NoSpacesInNameAllowed;
+import pl.vik.gm.Exceptions.EmptyLabelException;
+import pl.vik.gm.Exceptions.NoSpacesInNameAllowed;
 import pl.vik.gm.save_load.SaveGame;
-import pl.vik.gm.save_load.Validators;
+import pl.vik.gm.Exceptions.Validators;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class SavePanel extends JPanel {
     private final MainFrame mainFrame;

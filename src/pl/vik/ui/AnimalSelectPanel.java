@@ -21,21 +21,25 @@ public class AnimalSelectPanel extends JPanel {
         this.mainFrame = mainFrame;
         this.gameData = GameData.getInstance();
 
-        GridLayout gridLayout = new GridLayout(0,1);
-        gridLayout.setVgap(10);
-        gridLayout.setHgap(10);
+        GridLayout gridLayout = new GridLayout(3,3);
         this.setLayout(gridLayout);
     }
 
     public void render() {
-        createAllAnimalsButtons();
         add(new JLabel());
-        add(createBackButton());
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
+        this.add(buttonsContainer());
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
     }
 
-    private void createAllAnimalsButtons() {
+    private void createAllAnimalsButtons(Container container) {
         for (Integer i : level.playableAnimals.keySet()) {
-            add(createAnimalButton(i,level.playableAnimals.get(i)));
+            container.add(createAnimalButton(i,level.playableAnimals.get(i)));
         }
     }
 
@@ -64,12 +68,26 @@ public class AnimalSelectPanel extends JPanel {
     }
 
     private Integer randomPick(Level level) {
-        Animal randomEnemy = null;
         Random random = new Random();
 
         int randomNum = random.nextInt(level.possibleEnemies.size()) + 1;
 
         return randomNum;
+    }
+
+    private Container buttonsContainer() {
+        Container container = new Container();
+        GridLayout gridLayout = new GridLayout(0,1);
+        gridLayout.setVgap(10);
+        gridLayout.setHgap(10);
+        container.setLayout(gridLayout);
+
+        container.add(new JLabel("Select Your Animal", JLabel.CENTER));
+        createAllAnimalsButtons(container);
+        container.add(new JLabel());
+        container.add(createBackButton());
+
+        return container;
     }
 }
 

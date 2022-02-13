@@ -1,8 +1,11 @@
 package pl.vik.gm.fight_maneger;
 
 
+import pl.vik.gm.Exceptions.NoEnergyException;
+import pl.vik.gm.Exceptions.Validators;
 import pl.vik.gm.animals.Skill;
 import pl.vik.gm.animals.Animal;
+import pl.vik.ui.GamePanel;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -89,10 +92,14 @@ public class Player implements Actions{
 
     @Override
     public boolean makeMove(Skill skill) {
-        if (haveEnergyToMakeThatMove(skill)) {
-            useSkill(skill);
-            currentEnergy -= skill.energyCost;
-            return true;
+        try {
+            if (Validators.haveEnergyToMakeThatMove(skill.energyCost, currentEnergy)) {
+                useSkill(skill);
+                currentEnergy -= skill.energyCost;
+                return true;
+            }
+        } catch (NoEnergyException e) {
+            GamePanel.printNoEnergyAlert(e.toString());
         }
 
         return false;

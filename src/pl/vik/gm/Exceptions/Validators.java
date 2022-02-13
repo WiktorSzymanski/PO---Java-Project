@@ -1,4 +1,4 @@
-package pl.vik.gm.save_load;
+package pl.vik.gm.Exceptions;
 
 public class Validators {
     public static String getFileNameFromKeyboard(String name) throws EmptyLabelException, NoSpacesInNameAllowed {
@@ -15,5 +15,13 @@ public class Validators {
         }
 
         return name;
+    }
+
+    public static boolean haveEnergyToMakeThatMove(Integer energyCost, Integer energy) throws NoEnergyException{
+        if (energyCost > energy) {
+            throw new NoEnergyException();
+        }
+
+        return true;
     }
 }

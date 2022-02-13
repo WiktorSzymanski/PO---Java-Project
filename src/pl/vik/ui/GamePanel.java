@@ -22,12 +22,16 @@ public class GamePanel extends JPanel {
     private JLabel enemyHealth;
     private JLabel enemyEnergy;
 
+    private static JLabel noEnergyLabel = new JLabel("",JLabel.CENTER);
+
     GamePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
 
         this.setLayout(new GridLayout(0,1));
 
         this.gameData = GameData.getInstance();
+
+        this.noEnergyLabel.setForeground(Color.red);
     }
 
     public void render() {
@@ -38,9 +42,7 @@ public class GamePanel extends JPanel {
         enemyHealth = new JLabel("Health : " + fightManeger.enemy.currentHealth);
         enemyEnergy = new JLabel("Energy : " + fightManeger.enemy.currentEnergy);
 
-        add(enemyContainer());
-        add(playerContainer());
-        add(buttonsContainer());
+        add(allContainers());
 
     }
 
@@ -70,6 +72,7 @@ public class GamePanel extends JPanel {
 
             if (fightManeger.player.makeMove(skill)) {
                     fightManeger.playerTurn();
+                    noEnergyLabel.setText("");
                     refreshPanel();
 
                 if (fightManeger.ifEndGame()) {
@@ -145,7 +148,9 @@ public class GamePanel extends JPanel {
         gridLayout.setVgap(10);
         container.setLayout(gridLayout);
 
+        container.add(noEnergyLabel);
         createAllSkillsButtons(container);
+        container.add(new JLabel());
 
         return container;
     }
@@ -167,5 +172,22 @@ public class GamePanel extends JPanel {
         container.add(energy);
 
         return container;
+    }
+
+    private Container allContainers() {
+        Container container = new Container();
+
+        BoxLayout boxLayout = new BoxLayout(container, BoxLayout.Y_AXIS);
+        container.setLayout(boxLayout);
+
+        container.add(enemyContainer());
+        container.add(playerContainer());
+        container.add(buttonsContainer());
+
+        return container;
+    }
+
+    public static void printNoEnergyAlert(String alert) {
+        noEnergyLabel.setText(alert);
     }
 }
