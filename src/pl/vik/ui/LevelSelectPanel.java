@@ -9,6 +9,8 @@ import java.awt.*;
 public class LevelSelectPanel extends JPanel {
     private final MainFrame mainFrame;
 
+    private final Image background = new ImageIcon("img/menuBg.png").getImage();
+
     private GameData gameData;
 
     private Integer selectedLevelId;
@@ -56,7 +58,6 @@ public class LevelSelectPanel extends JPanel {
         gridLayout.setHgap(10);
         container.setLayout(gridLayout);
 
-        container.add(new JLabel("Select level", JLabel.CENTER));
         createAllLvButtons(container);
         container.add(new JLabel());
         container.add(createMainMenuButton());
@@ -64,5 +65,11 @@ public class LevelSelectPanel extends JPanel {
         return container;
     }
 
-
+    public void paintComponent(Graphics g) {
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.drawImage(background, 0, 0, this);
+        g2D.setFont(new Font("Nunito", Font.BOLD, 30));
+        g2D.setPaint(Color.white);
+        g2D.drawString("Select level", 210,150);
+    }
 }

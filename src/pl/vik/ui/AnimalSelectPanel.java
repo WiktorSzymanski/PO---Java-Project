@@ -13,6 +13,8 @@ public class AnimalSelectPanel extends JPanel {
     private GameData gameData;
     private Level level;
 
+    private final Image background = new ImageIcon("img/menuBg.png").getImage();
+
     private int levelId;
     private int playerAnimalId;
     private int enemyAnimalId;
@@ -82,12 +84,19 @@ public class AnimalSelectPanel extends JPanel {
         gridLayout.setHgap(10);
         container.setLayout(gridLayout);
 
-        container.add(new JLabel("Select Your Animal", JLabel.CENTER));
         createAllAnimalsButtons(container);
         container.add(new JLabel());
         container.add(createBackButton());
 
         return container;
+    }
+
+    public void paintComponent(Graphics g) {
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.drawImage(background, 0, 0, this);
+        g2D.setFont(new Font("Nunito", Font.BOLD, 30));
+        g2D.setPaint(Color.white);
+        g2D.drawString("Select Your Animal", 160,150);
     }
 }
 

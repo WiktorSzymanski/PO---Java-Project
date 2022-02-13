@@ -99,13 +99,29 @@ public class GamePanel extends JPanel {
 
     public void endGame(boolean playerWon) {
         removeAll();
+        setLayout(new GridLayout(3,3));
+        Container container = new Container();
+        container.setLayout(new GridLayout(0,1));
         if (playerWon) {
             gameData.achievementCheck(fightManeger.enemyAnimal.name);
-            add(new JLabel("Player Won"));
+            container.add(new JLabel("Player Won"),JLabel.CENTER);
         } else {
-            add(new JLabel("Player Lost"));
+            container.add(new JLabel("Player Lost"),JLabel.CENTER);
         }
-        add(createBackButton());
+        container.add(new JLabel());
+        JButton button = createBackButton();
+        button.setText("Continue");
+        container.add(button);
+
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
+        add(container);
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
     }
 
     private Container enemyContainer() {

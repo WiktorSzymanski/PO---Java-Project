@@ -2,9 +2,13 @@ package pl.vik.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
 public class MainMenuPanel extends JPanel {
     private final MainFrame mainFrame;
+
+    private final Image background = new ImageIcon("img/menuBg.png").getImage();
 
     MainMenuPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -59,7 +63,7 @@ public class MainMenuPanel extends JPanel {
         gridLayout.setVgap(10);
         container.setLayout(gridLayout);
 
-        container.add(new JLabel("THE game", JLabel.CENTER));
+//        container.add(new JLabel("THE game", JLabel.CENTER));
         container.add(createLevelSelectButton());
         container.add(createSaveButton());
         container.add(createLoadButton());
@@ -67,5 +71,13 @@ public class MainMenuPanel extends JPanel {
         container.add(createExitButton());
 
         return container;
+    }
+
+    public void paintComponent(Graphics g) {
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.drawImage(background, 0, 0, this);
+        g2D.setFont(new Font("Nunito", Font.BOLD, 30));
+        g2D.setPaint(Color.white);
+        g2D.drawString("THE game", 220,150);
     }
 }
