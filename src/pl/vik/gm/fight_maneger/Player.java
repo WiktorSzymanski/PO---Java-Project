@@ -7,95 +7,58 @@ import pl.vik.gm.animals.Skill;
 import pl.vik.gm.animals.Animal;
 import pl.vik.ui.GamePanel;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Random;
 
 public class Player implements Actions{
 
-    private Animal player = null;
-    private FightManeger fightManeger = null;
+    private Animal player;
+    private FightManager fightManager;
 
-    public Integer currentHealth;
-    public Integer currentEnergy;
+    private Integer currentHealth;
+    private Integer currentEnergy;
 
     Random random = new Random();
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    Player(FightManeger fightManeger) {
-        this.fightManeger = fightManeger;
-        this.player = fightManeger.playerAnimal;
-        this.currentHealth = this.player.health;
-        this.currentEnergy = this.player.energy;
-    }
-
-    public void printActionList() {
-        for ( Integer i : player.skills.keySet()) {
-            System.out.println(i + ". " + player.skills.get(i).name + " (" + player.skills.get(i).minEfficiency + "-" + player.skills.get(i).maxEfficiency + " " + player.skills.get(i).type + ") energy Cost: " + player.skills.get(i).energyCost);
-        }
+    Player(FightManager fightManager) {
+        this.setFightManager(fightManager);
+        this.setPlayer(fightManager.getPlayerAnimal());
+        this.setCurrentHealth(this.getPlayer().getHealth());
+        this.setCurrentEnergy(this.getPlayer().getEnergy());
     }
 
     @Override
     public void attack(Skill skill) {
-        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency;
+        int efficiency = random.nextInt(skill.getMaxEfficiency() - skill.getMinEfficiency() + 1) + skill.getMinEfficiency();
 
-        fightManeger.dealDmg(efficiency);
+        getFightManager().dealDmg(efficiency);
         System.out.println("Player Attacked for " + efficiency);
     }
 
     @Override
     public void heal(Skill skill) {
-        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency;
+        int efficiency = random.nextInt(skill.getMaxEfficiency() - skill.getMinEfficiency() + 1) + skill.getMinEfficiency();
 
-        if (currentHealth + efficiency < player.health) {
-            currentHealth += efficiency;
+        if (getCurrentHealth() + efficiency < getPlayer().getHealth()) {
+            setCurrentHealth(getCurrentHealth() + efficiency);
         } else {
-            currentHealth = player.health;
+            setCurrentHealth(getPlayer().getHealth());
         }
         System.out.println("Player Healed for " + efficiency);
     }
 
     @Override
     public void buff(Skill skill) {
-        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency;
+        int efficiency = random.nextInt(skill.getMaxEfficiency() - skill.getMinEfficiency() + 1) + skill.getMinEfficiency();
 
         System.out.println("Player rested (restored " + regen(efficiency) + " energy)");
     }
 
-    // For console test
-//    @Override
-//    public void makeMove() {
-//        int skillNumber = 0;
-//        Skill skillToUse = null;
-//
-//        while (true) {
-//            printActionList();
-//            System.out.println("Pick a skill you want to use: ");
-//            try {
-//                skillNumber = Integer.parseInt(reader.readLine());
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            skillToUse = player.skills.get(skillNumber);
-//
-//            if (haveEnergyToMakeThatMove(skillToUse)) {
-//                break;
-//            } else {
-//                System.out.println("You don't have enough energy to perform this action");
-//            }
-//        }
-//
-//        useSkill(skillToUse);
-//        currentEnergy -= skillToUse.energyCost;
-//    }
-
     @Override
     public boolean makeMove(Skill skill) {
         try {
-            if (Validators.haveEnergyToMakeThatMove(skill.energyCost, currentEnergy)) {
+            if (Validators.haveEnergyToMakeThatMove(skill.getEnergyCost(), getCurrentEnergy())) {
                 useSkill(skill);
-                currentEnergy -= skill.energyCost;
+                setCurrentEnergy(getCurrentEnergy() - skill.getEnergyCost());
                 return true;
             }
         } catch (NoEnergyException e) {
@@ -107,7 +70,7 @@ public class Player implements Actions{
 
     @Override
     public void useSkill(Skill skill) {
-        switch (skill.type) {
+        switch (skill.getType()) {
             case ATTACK -> attack(skill);
             case HEAL -> heal(skill);
             case BUFF -> buff(skill);
@@ -116,12 +79,12 @@ public class Player implements Actions{
 
     @Override
     public int regen(int efficiency) {
-        if(currentEnergy + efficiency > player.energy) {
-            int restored = player.energy-currentEnergy;
-            currentEnergy = player.energy;
+        if(getCurrentEnergy() + efficiency > getPlayer().getEnergy()) {
+            int restored = getPlayer().getEnergy() - getCurrentEnergy();
+            setCurrentEnergy(getPlayer().getEnergy());
             return restored;
         } else {
-            currentEnergy += efficiency;
+            setCurrentEnergy(getCurrentEnergy() + efficiency);
             return efficiency;
         }
     }
@@ -133,9 +96,41 @@ public class Player implements Actions{
 
     @Override
     public boolean haveEnergyToMakeThatMove(Skill skill) {
-        if (currentEnergy >= skill.energyCost) {
+        if (getCurrentEnergy() >= skill.getEnergyCost()) {
             return true;
         }
         return false;
+    }
+
+    public Animal getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Animal player) {
+        this.player = player;
+    }
+
+    public FightManager getFightManager() {
+        return fightManager;
+    }
+
+    public void setFightManager(FightManager fightManager) {
+        this.fightManager = fightManager;
+    }
+
+    public Integer getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(Integer currentHealth) {
+        this.currentHealth = currentHealth;
+    }
+
+    public Integer getCurrentEnergy() {
+        return currentEnergy;
+    }
+
+    public void setCurrentEnergy(Integer currentEnergy) {
+        this.currentEnergy = currentEnergy;
     }
 }

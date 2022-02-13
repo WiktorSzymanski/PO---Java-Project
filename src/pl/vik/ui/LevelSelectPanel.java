@@ -13,8 +13,6 @@ public class LevelSelectPanel extends JPanel {
 
     private GameData gameData;
 
-    private Integer selectedLevelId;
-
     LevelSelectPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         this.gameData = GameData.getInstance();
@@ -34,13 +32,13 @@ public class LevelSelectPanel extends JPanel {
     }
 
     private void createAllLvButtons(Container container) {
-        for (Integer i : gameData.data.levels.keySet()) {
-            container.add(createLevelButton(i,gameData.data.levels.get(i)));
+        for (Integer i : gameData.getData().getLevels().keySet()) {
+            container.add(createLevelButton(i, gameData.getData().getLevels().get(i)));
         }
     }
 
     private JButton createLevelButton(Integer lvId, Level level) {
-        JButton levelButton = new JButton(level.name);
+        JButton levelButton = new JButton(level.getName());
         levelButton.addActionListener(e -> mainFrame.openAnimalPanel(lvId));
         return levelButton;
     }

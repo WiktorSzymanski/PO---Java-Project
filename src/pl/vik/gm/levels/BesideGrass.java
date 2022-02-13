@@ -12,11 +12,11 @@ import java.util.HashMap;
 public class BesideGrass extends Level{
     public BesideGrass() {
         super();
-        this.name = "Beside Grass";
-        this.bg = new ImageIcon("img/grass.png").getImage();
-        this.planes = new Color(	170, 90, 29);
-        this.playableAnimals = playableAnimals();
-        this.possibleEnemies = possibleEnemies();
+        this.setName("Beside Grass");
+        this.setBg(new ImageIcon("img/grass.png").getImage());
+        this.setPlanes(new Color(	170, 90, 29));
+        this.setPlayableAnimals(playableAnimals());
+        this.setPossibleEnemies(possibleEnemies());
     }
 
     private HashMap<Integer, Animal> playableAnimals() {

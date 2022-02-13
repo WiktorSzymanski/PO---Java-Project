@@ -2,19 +2,18 @@ package pl.vik.ui;
 
 import pl.vik.gm.GameData;
 import pl.vik.gm.animals.Skill;
-import pl.vik.gm.fight_maneger.FightManeger;
+import pl.vik.gm.fight_maneger.FightManager;
 import pl.vik.gm.levels.Level;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Area;
 
 public class GamePanel extends JPanel {
     private final MainFrame mainFrame;
 
     private GameData gameData;
 
-    private FightManeger fightManeger;
+    private FightManager fightManager;
     private Level level;
 
     private JLabel playerHealth;
@@ -37,11 +36,11 @@ public class GamePanel extends JPanel {
 
     public void render() {
 
-        playerHealth = new JLabel("Health : " + fightManeger.player.currentHealth);
-        playerEnergy = new JLabel("Energy : " + fightManeger.player.currentEnergy);
+        playerHealth = new JLabel("Health : " + fightManager.getPlayer().getCurrentHealth());
+        playerEnergy = new JLabel("Energy : " + fightManager.getPlayer().getCurrentEnergy());
 
-        enemyHealth = new JLabel("Health : " + fightManeger.enemy.currentHealth);
-        enemyEnergy = new JLabel("Energy : " + fightManeger.enemy.currentEnergy);
+        enemyHealth = new JLabel("Health : " + fightManager.getEnemy().getCurrentHealth());
+        enemyEnergy = new JLabel("Energy : " + fightManager.getEnemy().getCurrentEnergy());
 
         add(allContainers());
 
@@ -57,33 +56,33 @@ public class GamePanel extends JPanel {
     }
 
     public void setGameData(Integer levelId, Integer playerAnimalId, Integer enemyAnimalId) {
-        this.level = gameData.data.levels.get(levelId);
-        this.fightManeger = new FightManeger(this, level.playableAnimals.get(playerAnimalId), level.possibleEnemies.get(enemyAnimalId));
+        this.level = gameData.getData().getLevels().get(levelId);
+        this.fightManager = new FightManager(this, level.getPlayableAnimals().get(playerAnimalId), level.getPossibleEnemies().get(enemyAnimalId));
     }
 
     private void createAllSkillsButtons(Container container) {
-        for (Integer i : fightManeger.playerAnimal.skills.keySet()) {
-            container.add(createSkillButton(fightManeger.playerAnimal.skills.get(i)));
+        for (Integer i : fightManager.getPlayerAnimal().getSkills().keySet()) {
+            container.add(createSkillButton(fightManager.getPlayerAnimal().getSkills().get(i)));
         }
     }
 
     private JButton createSkillButton(Skill skill) {
-        JButton skillButton = new JButton(skill.name);
+        JButton skillButton = new JButton(skill.getName());
         skillButton.addActionListener(e -> {
 
-            if (fightManeger.player.makeMove(skill)) {
-                    fightManeger.playerTurn();
-                    noEnergyLabel.setText("");
-                    refreshPanel();
+            if (fightManager.getPlayer().makeMove(skill)) {
+                fightManager.playerTurn();
+                noEnergyLabel.setText("");
+                refreshPanel();
 
-                if (fightManeger.ifEndGame()) {
+                if (fightManager.ifEndGame()) {
                     return;
                 }
 
-                fightManeger.enemyTurn();
+                fightManager.enemyTurn();
                 refreshPanel();
 
-                if (fightManeger.ifEndGame()) {
+                if (fightManager.ifEndGame()) {
                     return;
                 }
             }
@@ -92,45 +91,29 @@ public class GamePanel extends JPanel {
     }
 
     private void refreshPanel() {
-        playerHealth.setText("Health : " + fightManeger.player.currentHealth);
-        playerEnergy.setText("Energy : " + fightManeger.player.currentEnergy);
-        enemyHealth.setText("Health : " + fightManeger.enemy.currentHealth);
-        enemyEnergy.setText("Energy : " + fightManeger.enemy.currentEnergy);
+        playerHealth.setText("Health : " + fightManager.getPlayer().getCurrentHealth());
+        playerEnergy.setText("Energy : " + fightManager.getPlayer().getCurrentEnergy());
+        enemyHealth.setText("Health : " + fightManager.getEnemy().getCurrentHealth());
+        enemyEnergy.setText("Energy : " + fightManager.getEnemy().getCurrentEnergy());
     }
 
     public void endGame(boolean playerWon) {
         removeAll();
-        setLayout(new GridLayout(3,3));
-        Container container = new Container();
-        container.setLayout(new GridLayout(0,1));
         if (playerWon) {
-            gameData.achievementCheck(fightManeger.enemyAnimal.name);
-            container.add(new JLabel("Player Won"),JLabel.CENTER);
+            gameData.achievementCheck(fightManager.getEnemyAnimal().getName());
+            add(new JLabel("Player Won"));
         } else {
-            container.add(new JLabel("Player Lost"),JLabel.CENTER);
+            add(new JLabel("Player Lost"));
         }
-        container.add(new JLabel());
-        JButton button = createBackButton();
-        button.setText("Continue");
-        container.add(button);
-
-        add(new JLabel());
-        add(new JLabel());
-        add(new JLabel());
-        add(new JLabel());
-        add(container);
-        add(new JLabel());
-        add(new JLabel());
-        add(new JLabel());
-        add(new JLabel());
+        add(createBackButton());
     }
 
     private Container enemyContainer() {
         Container container = new Container();
         container.setLayout(new GridLayout(1,2));
 
-        container.add(statsContainer("Enemy",fightManeger.enemyAnimal.name, enemyHealth, enemyEnergy));
-        container.add(new JLabel(fightManeger.enemyAnimal.image));
+        container.add(statsContainer("Enemy", fightManager.getEnemyAnimal().getName(), enemyHealth, enemyEnergy));
+        container.add(new JLabel(fightManager.getEnemyAnimal().getImage()));
 
         return container;
     }
@@ -139,8 +122,8 @@ public class GamePanel extends JPanel {
         Container container = new Container();
         container.setLayout(new GridLayout(1,2));
 
-        container.add(new JLabel(fightManeger.playerAnimal.image));
-        container.add(statsContainer("Player",fightManeger.playerAnimal.name, playerHealth, playerEnergy));
+        container.add(new JLabel(fightManager.getPlayerAnimal().getImage()));
+        container.add(statsContainer("Player", fightManager.getPlayerAnimal().getName(), playerHealth, playerEnergy));
 
         return container;
     }
@@ -206,13 +189,5 @@ public class GamePanel extends JPanel {
 
     public static void printNoEnergyAlert(String alert) {
         noEnergyLabel.setText(alert);
-    }
-
-    public void paintComponent(Graphics g) {
-        Graphics2D g2D = (Graphics2D) g;
-        g2D.drawImage(level.bg,0,0,this);
-        g2D.setPaint(level.planes);
-        g2D.fillOval(55, 233,200, 100);
-        g2D.fillOval(340,73, 200, 100);
     }
 }

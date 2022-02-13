@@ -13,11 +13,11 @@ import java.util.HashMap;
 public class FieldsAndWoods extends Level{
     public FieldsAndWoods() {
         super();
-        this.name = "Fields And Woods";
-        this.bg = new ImageIcon("img/field.png").getImage();
-        this.planes = new Color(53, 102, 49);
-        this.playableAnimals = playableAnimals();
-        this.possibleEnemies = possibleEnemies();
+        this.setName("Fields And Woods");
+        this.setBg(new ImageIcon("img/field.png").getImage());
+        this.setPlanes(new Color(53, 102, 49));
+        this.setPlayableAnimals(playableAnimals());
+        this.setPossibleEnemies(possibleEnemies());
     }
 
     private HashMap<Integer, Animal> playableAnimals() {

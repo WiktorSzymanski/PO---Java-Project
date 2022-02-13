@@ -19,7 +19,7 @@ public class SaveGame {
 
         try {
             outputStream = new ObjectOutputStream(new FileOutputStream(filePatch));
-            outputStream.writeObject(gameData.data);
+            outputStream.writeObject(gameData.getData());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

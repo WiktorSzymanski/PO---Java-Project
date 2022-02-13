@@ -1,7 +1,6 @@
 package pl.vik.ui;
 
 import pl.vik.gm.Achievement;
-import pl.vik.gm.Achievements;
 import pl.vik.gm.GameData;
 
 import javax.swing.*;
@@ -39,8 +38,8 @@ public class AchievementsPanel extends JPanel {
     }
 
     private void printAllAchievements(Container container) {
-        for (Achievement achievement : gameData.data.achievements) {
-            container.add(achievementContainer(achievement.image, achievement.name, achievement.completed));
+        for (Achievement achievement : gameData.getData().getAchievements()) {
+            container.add(achievementContainer(achievement.getImage(), achievement.getName(), achievement.isCompleted()));
         }
     }
 

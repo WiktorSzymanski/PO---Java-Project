@@ -2,8 +2,6 @@ package pl.vik.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 
 public class MainMenuPanel extends JPanel {
     private final MainFrame mainFrame;

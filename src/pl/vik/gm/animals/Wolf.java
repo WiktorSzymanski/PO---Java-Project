@@ -6,11 +6,11 @@ import java.util.HashMap;
 public class Wolf extends Animal{
     public Wolf() {
         super();
-        this.name = "Wolf";
-        this.health = 75;
-        this.energy = 75;
-        this.skills = Skills();
-        this.image = new ImageIcon("img/wolf.png");
+        this.setName("Wolf");
+        this.setHealth(75);
+        this.setEnergy(75);
+        this.setSkills(Skills());
+        this.setImage(new ImageIcon("img/wolf.png"));
     }
 
     HashMap<Integer, Skill> Skills () {

@@ -40,13 +40,13 @@ public class AnimalSelectPanel extends JPanel {
     }
 
     private void createAllAnimalsButtons(Container container) {
-        for (Integer i : level.playableAnimals.keySet()) {
-            container.add(createAnimalButton(i,level.playableAnimals.get(i)));
+        for (Integer i : level.getPlayableAnimals().keySet()) {
+            container.add(createAnimalButton(i, level.getPlayableAnimals().get(i)));
         }
     }
 
     private JButton createAnimalButton(Integer animalId, Animal animal) {
-        JButton animalButton = new JButton(animal.name);
+        JButton animalButton = new JButton(animal.getName());
         animalButton.addActionListener(e -> {
             playerAnimalId = animalId;
             enemyAnimalId = randomPick(level);
@@ -66,13 +66,13 @@ public class AnimalSelectPanel extends JPanel {
 
     public void setLevel(Integer levelId) {
         this.levelId = levelId;
-        this.level = gameData.data.levels.get(levelId);
+        this.level = gameData.getData().getLevels().get(levelId);
     }
 
     private Integer randomPick(Level level) {
         Random random = new Random();
 
-        int randomNum = random.nextInt(level.possibleEnemies.size()) + 1;
+        int randomNum = random.nextInt(level.getPossibleEnemies().size()) + 1;
 
         return randomNum;
     }

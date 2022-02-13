@@ -4,7 +4,6 @@ import pl.vik.gm.levels.BesideGrass;
 import pl.vik.gm.levels.FieldsAndWoods;
 import pl.vik.gm.levels.Level;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,14 +11,14 @@ public class GameData {
 
     private static GameData gameData;
 
-    public Data data = new Data();
+    private Data data = new Data();
 
 
 
     private GameData() {
-        this.data.levels = levels();
-        this.data.achievements = achievements();
-        this.data.highestLevelCompleted = 0;
+        this.getData().setLevels(levels());
+        this.getData().setAchievements(achievements());
+        this.getData().setHighestLevelCompleted(0);
     }
 
     public static GameData getInstance() {
@@ -49,10 +48,10 @@ public class GameData {
     private ArrayList<Achievement> achievements() {
         ArrayList<Achievement> achievements = new ArrayList<>();
 
-        for(Integer i : data.levels.keySet()) {
-            for(Integer j : data.levels.get(i).possibleEnemies.keySet()) {
-                String animalName = data.levels.get(i).possibleEnemies.get(j).name;
-                achievements.add(new Achievement("Defeat " + animalName, data.levels.get(i).possibleEnemies.get(j).image, animalName));
+        for(Integer i : getData().getLevels().keySet()) {
+            for(Integer j : getData().getLevels().get(i).getPossibleEnemies().keySet()) {
+                String animalName = getData().getLevels().get(i).getPossibleEnemies().get(j).getName();
+                achievements.add(new Achievement("Defeat " + animalName, getData().getLevels().get(i).getPossibleEnemies().get(j).getImage(), animalName));
             }
         }
 
@@ -60,12 +59,16 @@ public class GameData {
     }
 
     public void achievementCheck(String enemyName) {
-        for (Achievement achievement : data.achievements) {
-            if (achievement.defToGet == enemyName) {
-                System.out.println(achievement.name + " should be completed now");
-                achievement.completed = true;
+        for (Achievement achievement : getData().getAchievements()) {
+            if (achievement.getDefToGet() == enemyName) {
+                System.out.println(achievement.getName() + " should be completed now");
+                achievement.setCompleted(true);
             }
         }
+    }
+
+    public Data getData() {
+        return data;
     }
 }
 
