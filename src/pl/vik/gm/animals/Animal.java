@@ -18,8 +18,16 @@ public abstract class Animal implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Integer getHealth() {
         return health;
+    }
+
+    public void setHealth(Integer health) {
+        this.health = health;
     }
 
     public Integer getEnergy() {
@@ -44,13 +52,5 @@ public abstract class Animal implements Serializable {
 
     public void setImage(ImageIcon image) {
         this.image = image;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setHealth(Integer health) {
-        this.health = health;
     }
 }

@@ -1,4 +1,4 @@
-package pl.vik.gm.Exceptions;
+package pl.vik.gm.exceptions;
 
 public class Validators {
     public static String getFileNameFromKeyboard(String name) throws EmptyLabelException, NoSpacesInNameAllowed {

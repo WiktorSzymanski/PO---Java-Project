@@ -8,13 +8,12 @@ import java.io.*;
 
 
 public class SaveGame {
-    static String filePatch = "saves/";
     static ObjectOutputStream outputStream = null;
 
     static GameData gameData = GameData.getInstance();
 
     public static void saveGame(String fileName){
-//        filePatch += getFileName();
+        String filePatch = "saves/";
         filePatch += fileName;
 
         try {
@@ -34,20 +33,6 @@ public class SaveGame {
 
         System.out.println("Game Saved");
     }
-
-//    private String getFileName(){
-//        String fileName;
-//
-//        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-//
-//        try {
-//            fileName = Validators.getFileNameFromKeyboard(input.readLine());
-//        } catch (IOException | EmptyLabelException | NoSpacesInNameAllowed e) {
-//            System.out.println(e.toString());
-//            fileName = getFileName();
-//        }
-//        return fileName;
-//    }
 }
 
 

@@ -13,8 +13,6 @@ public class BesideGrass extends Level{
     public BesideGrass() {
         super();
         this.setName("Beside Grass");
-        this.setBg(new ImageIcon("img/grass.png").getImage());
-        this.setPlanes(new Color(	170, 90, 29));
         this.setPlayableAnimals(playableAnimals());
         this.setPossibleEnemies(possibleEnemies());
     }

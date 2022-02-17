@@ -2,7 +2,7 @@ package pl.vik.ui;
 
 import pl.vik.gm.GameData;
 import pl.vik.gm.animals.Skill;
-import pl.vik.gm.fight_maneger.FightManager;
+import pl.vik.gm.fight_manager.FightManager;
 import pl.vik.gm.levels.Level;
 
 import javax.swing.*;
@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
     private final MainFrame mainFrame;
-
+    private final Image background = new ImageIcon("img/menuBg.png").getImage();
     private GameData gameData;
 
     private FightManager fightManager;
@@ -27,20 +27,23 @@ public class GamePanel extends JPanel {
     GamePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
 
-        this.setLayout(new GridLayout(0,1));
-
         this.gameData = GameData.getInstance();
 
         this.noEnergyLabel.setForeground(Color.red);
     }
 
     public void render() {
-
+        this.setLayout(new GridLayout(0,1));
         playerHealth = new JLabel("Health : " + fightManager.getPlayer().getCurrentHealth());
         playerEnergy = new JLabel("Energy : " + fightManager.getPlayer().getCurrentEnergy());
 
         enemyHealth = new JLabel("Health : " + fightManager.getEnemy().getCurrentHealth());
         enemyEnergy = new JLabel("Energy : " + fightManager.getEnemy().getCurrentEnergy());
+
+        playerHealth.setForeground(Color.white);
+        playerEnergy.setForeground(Color.white);
+        enemyHealth.setForeground(Color.white);
+        enemyEnergy.setForeground(Color.white);
 
         add(allContainers());
 
@@ -56,7 +59,7 @@ public class GamePanel extends JPanel {
     }
 
     public void setGameData(Integer levelId, Integer playerAnimalId, Integer enemyAnimalId) {
-        this.level = gameData.getData().getLevels().get(levelId);
+        this.level = gameData.getData().levels.get(levelId);
         this.fightManager = new FightManager(this, level.getPlayableAnimals().get(playerAnimalId), level.getPossibleEnemies().get(enemyAnimalId));
     }
 
@@ -67,13 +70,13 @@ public class GamePanel extends JPanel {
     }
 
     private JButton createSkillButton(Skill skill) {
-        JButton skillButton = new JButton(skill.getName());
+        JButton skillButton = new JButton(skill.name);
         skillButton.addActionListener(e -> {
 
             if (fightManager.getPlayer().makeMove(skill)) {
-                fightManager.playerTurn();
-                noEnergyLabel.setText("");
-                refreshPanel();
+                    fightManager.playerTurn();
+                    noEnergyLabel.setText("");
+                    refreshPanel();
 
                 if (fightManager.ifEndGame()) {
                     return;
@@ -99,13 +102,32 @@ public class GamePanel extends JPanel {
 
     public void endGame(boolean playerWon) {
         removeAll();
+        setLayout(new GridLayout(3,3));
+        Container container = new Container();
+        container.setLayout(new GridLayout(0,1));
+        JLabel label = new JLabel("",JLabel.CENTER);
+        label.setForeground(Color.white);
         if (playerWon) {
             gameData.achievementCheck(fightManager.getEnemyAnimal().getName());
-            add(new JLabel("Player Won"));
+            label.setText("Player Won");
         } else {
-            add(new JLabel("Player Lost"));
+            label.setText("Player Lost");
         }
-        add(createBackButton());
+        container.add(label);
+        container.add(new JLabel());
+        JButton button = createBackButton();
+        button.setText("Continue");
+        container.add(button);
+
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
+        add(container);
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
     }
 
     private Container enemyContainer() {
@@ -167,7 +189,9 @@ public class GamePanel extends JPanel {
     private Container statsContainer(String who, String name, JLabel health, JLabel energy) {
         Container container = new Container();
         container.setLayout(new GridLayout(0,1));
-        container.add(new JLabel(who + " : " + name));
+        JLabel label = new JLabel(who + " : " + name);
+        label.setForeground(Color.white);
+        container.add(label);
         container.add(health);
         container.add(energy);
 
@@ -189,5 +213,10 @@ public class GamePanel extends JPanel {
 
     public static void printNoEnergyAlert(String alert) {
         noEnergyLabel.setText(alert);
+    }
+
+    public void paintComponent(Graphics g) {
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.drawImage(background, 0, 0, this);
     }
 }

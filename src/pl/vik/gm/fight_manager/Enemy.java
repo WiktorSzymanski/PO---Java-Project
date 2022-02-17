@@ -1,4 +1,4 @@
-package pl.vik.gm.fight_maneger;
+package pl.vik.gm.fight_manager;
 
 import pl.vik.gm.animals.Skill;
 import pl.vik.gm.animals.Animal;
@@ -16,34 +16,34 @@ public class Enemy implements Actions {
     Random random = new Random();
 
     Enemy(FightManager fightManager) {
-        this.setFightManager(fightManager);
-        this.setEnemy(fightManager.getEnemyAnimal());
-        this.setCurrentHealth(this.getEnemy().getHealth());
-        this.setCurrentEnergy(this.getEnemy().getEnergy());
+        this.fightManager = fightManager;
+        this.enemy = fightManager.getEnemyAnimal();
+        this.setCurrentHealth(this.enemy.getHealth());
+        this.setCurrentEnergy(this.enemy.getEnergy());
     }
 
     @Override
     public void attack(Skill skill) {
-        int efficiency = random.nextInt(skill.getMaxEfficiency() - skill.getMinEfficiency() + 1) + skill.getMinEfficiency();
+        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency;
 
-        getFightManager().dealDmg(efficiency);
+        fightManager.dealDmg(efficiency);
         System.out.println("Enemy Attacked for " + efficiency);
     }
 
     @Override
     public void heal(Skill skill) {
-        int efficiency = random.nextInt(skill.getMaxEfficiency() - skill.getMinEfficiency() + 1) + skill.getMinEfficiency();
+        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency;
 
-        if (getCurrentHealth() + efficiency < getEnemy().getHealth()) {
+        if (getCurrentHealth() + efficiency < enemy.getHealth()) {
             setCurrentHealth(getCurrentHealth() + efficiency);
         } else {
-            setCurrentHealth(getEnemy().getHealth());
+            setCurrentHealth(enemy.getHealth());
         }
     }
 
     @Override
     public void buff(Skill skill) {
-        int efficiency = random.nextInt(skill.getMaxEfficiency() - skill.getMinEfficiency() + 1) + skill.getMinEfficiency();
+        int efficiency = random.nextInt(skill.maxEfficiency - skill.minEfficiency + 1) + skill.minEfficiency;
 
 
         System.out.println("Enemy rested (restored " + regen(efficiency) + " energy)");
@@ -54,7 +54,7 @@ public class Enemy implements Actions {
     public boolean makeMove(Skill skill) {
         if (haveEnergyToMakeThatMove(skill)) {
             useSkill(skill);
-            setCurrentEnergy(getCurrentEnergy() - skill.getEnergyCost());
+            setCurrentEnergy(getCurrentEnergy() - skill.energyCost);
 
             return true;
         }
@@ -63,17 +63,17 @@ public class Enemy implements Actions {
     }
 
     public void enemyAI() {
-        if (!makeMove(getEnemy().getSkills().get(1))) {
-            useSkill(getEnemy().getSkills().get(3));
+        if (!makeMove(enemy.getSkills().get(1))) {
+            useSkill(enemy.getSkills().get(3));
         }
 
     }
 
     @Override
     public int regen(int efficiency) {
-        if(getCurrentEnergy() + efficiency > getEnemy().getEnergy()) {
-            int restored = getEnemy().getEnergy() - getCurrentEnergy();
-            setCurrentEnergy(getEnemy().getEnergy());
+        if(getCurrentEnergy() + efficiency > enemy.getEnergy()) {
+            int restored = enemy.getEnergy() - getCurrentEnergy();
+            setCurrentEnergy(enemy.getEnergy());
             return restored;
         } else {
             setCurrentEnergy(getCurrentEnergy() + efficiency);
@@ -83,7 +83,7 @@ public class Enemy implements Actions {
 
     @Override
     public void useSkill(Skill skill) {
-        switch (skill.getType()) {
+        switch (skill.type) {
             case ATTACK -> attack(skill);
             case HEAL -> heal(skill);
             case BUFF -> buff(skill);
@@ -97,26 +97,10 @@ public class Enemy implements Actions {
 
     @Override
     public boolean haveEnergyToMakeThatMove(Skill skill) {
-        if (getCurrentEnergy() >= skill.getEnergyCost()) {
+        if (getCurrentEnergy() >= skill.energyCost) {
             return true;
         }
         return false;
-    }
-
-    public Animal getEnemy() {
-        return enemy;
-    }
-
-    public void setEnemy(Animal enemy) {
-        this.enemy = enemy;
-    }
-
-    public FightManager getFightManager() {
-        return fightManager;
-    }
-
-    public void setFightManager(FightManager fightManager) {
-        this.fightManager = fightManager;
     }
 
     public Integer getCurrentHealth() {

@@ -12,27 +12,58 @@ import java.util.Random;
 
 public class GameSetup {
 
-    public Level currentLevel;
-    public int currentLevelId;
-    public Animal currentAnimalPlayer;
-    public Animal currentAnimalEnemy;
+    public Level currentLevel = null;
+    public int currentLevelId = 0;
+    public Animal currentAnimalPlayer = null;
+    public Animal currentAnimalEnemy = null;
+
+    // TODO: Clean this
+    //       Zwracanie jednego pozoimu nie wszystkich
 
 
-    private HashMap<Integer,Level> allLevels;
-    private GameData gameData;
+    private HashMap<Integer,Level> allLevels = null;
+    private GameData gameData = null;
 
     public GameSetup() {
         gameData = GameData.getInstance();
-        allLevels = gameData.getData().getLevels();
+        allLevels = gameData.getData().levels;
 
         while (true) {
             currentLevel = levelPick();
 
             currentAnimalPlayer = animalPick(currentLevel);
             currentAnimalEnemy = randomPick(currentLevel);
+
+//        printAnimal(currentAnimalPlayer);
+//        printAnimal(currentAnimalEnemy);
+
+//            boolean passedLevel = FightManeger.returnFightResult(currentAnimalPlayer, currentAnimalEnemy);
+//
+//            if (passedLevel) {
+//                gameData.data.highestLevelCompleted = currentLevelId;
+//                gameData.achievementCheck(currentAnimalEnemy.name);
+//            }
+//
+//            if (ifBack()) {
+//                break;
+//            }
         }
     }
-    
+
+    private boolean ifBack() {
+        System.out.println("0 - go back to menu, nothing to continue");
+
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+        int action = 0;
+        try {
+            action = Integer.parseInt(input.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return action == 0;
+    }
+
     private Level levelPick() {
         Level pickedLevel = null;
 
@@ -54,6 +85,7 @@ public class GameSetup {
     }
 
     private Animal randomPick(Level level) {
+        Animal randomEnemy = null;
         Random random = new Random();
 
         int randomNum = random.nextInt(level.getPossibleEnemies().size()) + 1;
@@ -83,10 +115,20 @@ public class GameSetup {
 
         for (Integer i : allLevels.keySet()) {
             System.out.println(i + ". " + allLevels.get(i).getName());
-            if (i > gameData.getData().getHighestLevelCompleted()) {
+            if (i > gameData.getData().highestLevelCompleted) {
                 break;
             }
         }
+    }
+
+    private void printLevelDetails(Level level) {
+        System.out.println("Level name: " + level.getName());
+
+        System.out.println("Possible Enemis: ");
+        printEnemyLevelAnimals(level);
+
+        System.out.println("Playable Animals: ");
+        printPlayableLevelAnimals(level);
     }
 
     private void printPlayableLevelAnimals(Level level) {
@@ -94,6 +136,10 @@ public class GameSetup {
             System.out.print(i + ". ");
             printAnimal(level.getPlayableAnimals().get(i));
         }
+    }
+
+    private void printEnemyLevelAnimals(Level level) {
+        for (Integer i : level.getPossibleEnemies().keySet()) { printAnimal(level.getPossibleEnemies().get(i)); }
     }
 
     private void printAnimal(Animal animal) {
@@ -104,6 +150,13 @@ public class GameSetup {
 //
 //        System.out.println("Skills: ");
 //        for (Skill skill : animal.skills) { printSkill(skill); }
+    }
+
+    private void printSkill(Skill skill) {
+        System.out.println("Skill name: " + skill.name);
+        System.out.println("Skill type: " + skill.type);
+        System.out.println("Skill max ef: " + skill.maxEfficiency);
+        System.out.println("Skill min ef: " + skill.minEfficiency);
     }
 
 }

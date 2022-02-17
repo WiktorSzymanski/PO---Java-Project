@@ -14,8 +14,6 @@ public class FieldsAndWoods extends Level{
     public FieldsAndWoods() {
         super();
         this.setName("Fields And Woods");
-        this.setBg(new ImageIcon("img/field.png").getImage());
-        this.setPlanes(new Color(53, 102, 49));
         this.setPlayableAnimals(playableAnimals());
         this.setPossibleEnemies(possibleEnemies());
     }

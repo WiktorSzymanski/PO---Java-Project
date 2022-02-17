@@ -38,7 +38,7 @@ public class AchievementsPanel extends JPanel {
     }
 
     private void printAllAchievements(Container container) {
-        for (Achievement achievement : gameData.getData().getAchievements()) {
+        for (Achievement achievement : gameData.getData().achievements) {
             container.add(achievementContainer(achievement.getImage(), achievement.getName(), achievement.isCompleted()));
         }
     }

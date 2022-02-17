@@ -4,7 +4,7 @@ public class Achievements {
     GameData gameData = GameData.getInstance();
 
     public Achievements() {
-        for (Achievement achievement : gameData.getData().getAchievements()) {
+        for (Achievement achievement : gameData.getData().achievements) {
             System.out.println(achievement.getName() + " : " + achievement.isCompleted());
         }
     }

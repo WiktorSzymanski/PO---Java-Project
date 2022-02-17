@@ -1,4 +1,4 @@
-package pl.vik.gm.Exceptions;
+package pl.vik.gm.exceptions;
 
 public class NoEnergyException extends GMExceptions {
     @Override

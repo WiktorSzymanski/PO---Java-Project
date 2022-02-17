@@ -41,18 +41,18 @@ public class Main {
 
     }
 
-    public static int action() {
-        System.out.println("What you want to do?\n1. Play game\n2. Save\n3. Load\n4. Achievements\n5. Exit");
-
-
-        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        int action = 0;
-        try {
-            action = Integer.parseInt(input.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return action;
-    }
+//    public static int action() {
+//        System.out.println("What you want to do?\n1. Play game\n2. Save\n3. Load\n4. Achievements\n5. Exit");
+//
+//
+//        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+//        int action = 0;
+//        try {
+//            action = Integer.parseInt(input.readLine());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return action;
+//    }
 }

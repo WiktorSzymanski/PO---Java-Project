@@ -1,19 +1,18 @@
-package pl.vik.gm.fight_maneger;
+package pl.vik.gm.fight_manager;
 
 import pl.vik.gm.animals.Animal;
 import pl.vik.ui.GamePanel;
 
-
 public class FightManager {
     private final GamePanel gamePanel;
 
-    private Animal playerAnimal;
-    private Animal enemyAnimal;
+    private Animal playerAnimal = null;
+    private Animal enemyAnimal = null;
 
     private boolean isPlayerTurn = true;
 
-    private Player player;
-    private Enemy enemy;
+    private Player player = null;
+    private Enemy enemy = null;
 
     private boolean gameEnded = false;
 
@@ -26,10 +25,14 @@ public class FightManager {
         this.setPlayer(new Player(this));
         this.setEnemy(new Enemy(this));
 
+
+//        playerWon = fight();
+//        System.out.println("Player Won: " + playerWon);
+
     }
 
     public void dealDmg(int amount) {
-        if (isPlayerTurn()) {
+        if (isPlayerTurn) {
             getEnemy().setCurrentHealth(getEnemy().getCurrentHealth() - amount);
         } else {
             getPlayer().setCurrentHealth(getPlayer().getCurrentHealth() - amount);
@@ -45,29 +48,45 @@ public class FightManager {
         return false;
     }
 
+//    private boolean fight() {
+//        while (player.currentHealth > 0 && enemy.currentHealth > 0) {
+//            System.out.println("Player Health: " + player.currentHealth);
+//            System.out.println("Player Energy: " + player.currentEnergy);
+//            System.out.println("Enemy Health: " + enemy.currentHealth);
+//            System.out.println("Enemy Energy: " + enemy.currentEnergy);
+//            if (isPlayerTurn) {
+//                player.makeMove();
+//                isPlayerTurn = false;
+//                enemy.afterRoundRegen();
+//            } else {
+//                enemy.makeMove();
+//                isPlayerTurn = true;
+//                player.afterRoundRegen();
+//            }
+//        }
+//
+//        return playerWinCondition();
+//    }
+
     public void playerTurn() {
-        setPlayerTurn(false);
+        isPlayerTurn = false;
         getEnemy().afterRoundRegen();
     }
 
     public void enemyTurn() {
         getEnemy().enemyAI();
-        setPlayerTurn(true);
+        isPlayerTurn = true;
         getPlayer().afterRoundRegen();
     }
 
     public boolean ifEndGame() {
         if (getPlayer().getCurrentHealth() <= 0 || getEnemy().getCurrentHealth() <= 0) {
             setGameEnded(true);
-            getGamePanel().endGame(playerWinCondition());
+            gamePanel.endGame(playerWinCondition());
             return true;
         }
 
         return false;
-    }
-
-    public GamePanel getGamePanel() {
-        return gamePanel;
     }
 
     public Animal getPlayerAnimal() {
@@ -86,14 +105,6 @@ public class FightManager {
         this.enemyAnimal = enemyAnimal;
     }
 
-    public boolean isPlayerTurn() {
-        return isPlayerTurn;
-    }
-
-    public void setPlayerTurn(boolean playerTurn) {
-        isPlayerTurn = playerTurn;
-    }
-
     public Player getPlayer() {
         return player;
     }
@@ -108,6 +119,10 @@ public class FightManager {
 
     public void setEnemy(Enemy enemy) {
         this.enemy = enemy;
+    }
+
+    public boolean isGameEnded() {
+        return gameEnded;
     }
 
     public void setGameEnded(boolean gameEnded) {

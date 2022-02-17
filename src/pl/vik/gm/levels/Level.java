@@ -2,16 +2,14 @@ package pl.vik.gm.levels;
 
 import pl.vik.gm.animals.Animal;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.awt.*;
 
 public abstract class Level implements Serializable {
     private String name;
     private HashMap<Integer, Animal> playableAnimals;
     private HashMap<Integer,Animal> possibleEnemies;
-    private Image bg;
-    private Color planes;
 
     Level(){}
 
@@ -39,19 +37,4 @@ public abstract class Level implements Serializable {
         this.possibleEnemies = possibleEnemies;
     }
 
-    public Image getBg() {
-        return bg;
-    }
-
-    public void setBg(Image bg) {
-        this.bg = bg;
-    }
-
-    public Color getPlanes() {
-        return planes;
-    }
-
-    public void setPlanes(Color planes) {
-        this.planes = planes;
-    }
 }

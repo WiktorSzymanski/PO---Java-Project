@@ -66,7 +66,7 @@ public class AnimalSelectPanel extends JPanel {
 
     public void setLevel(Integer levelId) {
         this.levelId = levelId;
-        this.level = gameData.getData().getLevels().get(levelId);
+        this.level = gameData.getData().levels.get(levelId);
     }
 
     private Integer randomPick(Level level) {

@@ -32,8 +32,8 @@ public class LevelSelectPanel extends JPanel {
     }
 
     private void createAllLvButtons(Container container) {
-        for (Integer i : gameData.getData().getLevels().keySet()) {
-            container.add(createLevelButton(i, gameData.getData().getLevels().get(i)));
+        for (Integer i : gameData.getData().levels.keySet()) {
+            container.add(createLevelButton(i, gameData.getData().levels.get(i)));
         }
     }
 

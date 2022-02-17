@@ -1,4 +1,4 @@
-package pl.vik.gm.Exceptions;
+package pl.vik.gm.exceptions;
 
 public class EmptyLabelException extends GMExceptions {
     @Override

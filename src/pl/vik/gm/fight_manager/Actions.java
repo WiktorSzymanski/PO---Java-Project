@@ -1,4 +1,4 @@
-package pl.vik.gm.fight_maneger;
+package pl.vik.gm.fight_manager;
 
 import pl.vik.gm.animals.Skill;
 

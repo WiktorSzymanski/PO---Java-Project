@@ -1,9 +1,9 @@
 package pl.vik.ui;
 
-import pl.vik.gm.Exceptions.EmptyLabelException;
-import pl.vik.gm.Exceptions.NoSpacesInNameAllowed;
+import pl.vik.gm.exceptions.EmptyLabelException;
+import pl.vik.gm.exceptions.NoSpacesInNameAllowed;
 import pl.vik.gm.save_load.SaveGame;
-import pl.vik.gm.Exceptions.Validators;
+import pl.vik.gm.exceptions.Validators;
 
 import javax.swing.*;
 import java.awt.*;
